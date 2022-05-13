@@ -1,11 +1,28 @@
 public class BoardTile {
     private boolean whiteSquare;
-    private boolean occupied;
+    private boolean occupied;//?
     private int postionX;//(1,2,3,4,5,6,7,8)
     private int postionY;//(a,b,c,d,e,f,g,h)
+    private Piece piece;
+
+    public BoardTile(String piece, int x, int y, boolean white, boolean occupied)
+    {
+        this.piece = new Piece();
+        postionX = x;
+        postionY = y;
+        whiteSquare = white;
+        this.occupied = occupied;
+    }
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
 
     public boolean isOccupied() {
-        return occupied;
+        return piece != null;
+    }
+
+    public Piece getPiece() {
+        return piece;
     }
 
     public boolean isWhiteSquare() {
@@ -19,4 +36,5 @@ public class BoardTile {
     public int getPostionY() {
         return postionY;
     }
+
 }
