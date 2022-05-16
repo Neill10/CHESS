@@ -17,7 +17,7 @@ public class Piece {
         this.white = white;
 
     }
-    //problemos with this
+    //just a stand in
     public boolean move(Board b, int x, int y){
         return false;
     }
@@ -39,6 +39,13 @@ public class Piece {
     public int getPostionY() {
         return postionY;
     }
+    /*
+    public String[] possibleMoves()
+    {
+
+    }
+
+     */
 
     public String toString()
     {

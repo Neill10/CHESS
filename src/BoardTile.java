@@ -5,9 +5,16 @@ public class BoardTile {
     private int postionY;//(a,b,c,d,e,f,g,h)
     private Piece piece;
 
-    public BoardTile(String piece, int x, int y, boolean white, boolean occupied)
+    public BoardTile(int x, int y, boolean white, boolean occupied)
     {
-        this.piece = new Piece();
+        postionX = x;
+        postionY = y;
+        whiteSquare = white;
+        this.occupied = occupied;
+    }
+    public BoardTile(Piece piece, int x, int y, boolean white, boolean occupied)
+    {
+        this.piece = piece;
         postionX = x;
         postionY = y;
         whiteSquare = white;
