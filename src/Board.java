@@ -11,10 +11,10 @@ public class Board {
             {
                 if(x % 2 == 1)
                 {
-                    board[i][x] = new BoardTile(i+1,x+1,true,false);
+                    board[i][x] = new BoardTile(i+1,x+1,true);
                 }
                 else {
-                    board[i][x] = new BoardTile(i+1,x+1,false,false);
+                    board[i][x] = new BoardTile(i+1,x+1,false);
                 }
             }
         }
@@ -23,11 +23,11 @@ public class Board {
 
     public void fillBoard()
     {
-        Queen qW = new Queen("Queen",1,4,false,false,true);
-        Queen qB = new Queen("Queen",1,4,false,false,true);
+        Queen qW = new Queen("Queen",1,4,false,true);
+        Queen qB = new Queen("Queen",1,4,false,true);
         //Queens
-        board [0][3] = new BoardTile(qW,1,4,true,true);
-        board [7][3] = new BoardTile(qB,8,4,false,true);
+        board [0][3] = new BoardTile(qW,1,4,true);
+        board [7][3] = new BoardTile(qB,8,4,false);
 
         /*
         // Rooks

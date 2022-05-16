@@ -1,26 +1,24 @@
 import java.util.*;
-public class Piece {
+public abstract class Piece {
     private boolean white;
     private boolean captured;
-    private boolean canJump;
     private int postionX;//(1,2,3,4,5,6,7,8)
     private int postionY;//(a,b,c,d,e,f,g,h)
     private String pieceName;
 
-    public Piece(String pieceName, int x, int y,boolean canJump,boolean captured,boolean white)
+    public Piece(String pieceName, int x, int y,boolean captured,boolean white)
     {
         this.pieceName = pieceName;
         postionX = x;
         postionY = y;
-        this.canJump =  canJump;
         this.captured = captured;
         this.white = white;
 
     }
-    //just a stand in
-    public boolean move(Board b, int x, int y){
-        return false;
-    }
+
+    public abstract boolean move(Board b, int x, int y);
+
+    public abstract ArrayList<BoardTile> possibleMoves();
 
     //getter methods
     public boolean isWhite()

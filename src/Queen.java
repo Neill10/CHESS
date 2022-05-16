@@ -1,11 +1,11 @@
 import java.util.*;
 public class Queen extends Piece{
 
-    public Queen(String pieceName, int x, int y,boolean canJump,boolean captured,boolean white)
+    public Queen(String pieceName, int x, int y,boolean captured,boolean white)
     {
-        super(pieceName,x,y,canJump,captured,white);
+        super(pieceName,x,y,captured,white);
     }
-    @Override
+
     public boolean move(Board b, int x, int y)//returns true if successfully moved.
     {
         boolean team = isWhite();
@@ -25,6 +25,11 @@ public class Queen extends Piece{
             }
         }
         return false;
+    }
+
+    @Override
+    public ArrayList<BoardTile> possibleMoves() {
+        return null;
     }
 
     @Override
