@@ -1,13 +1,19 @@
-import java.util.*;
-public class Queen extends Piece{
+package pieces;
 
-    public Queen(String pieceName, int x, int y,boolean captured,boolean white)
+
+
+import java.util.*;
+public class Queen extends Piece {
+
+    public Queen(int x, int y,boolean white)
     {
-        super(pieceName,x,y,captured,white);
+        super("Queen",x,y,white);
     }
 
     public boolean move(Board b, int x, int y)//returns true if successfully moved.
     {
+        return true;
+        /*
         boolean team = isWhite();
         //location at (x,y) is empty
         if(!b.getBoard()[x][y].isOccupied())
@@ -25,6 +31,8 @@ public class Queen extends Piece{
             }
         }
         return false;
+
+         */
     }
 
     @Override

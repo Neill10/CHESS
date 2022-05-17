@@ -1,3 +1,5 @@
+package Tester;
+
 import java.util.*;
 public class HashmapTester {
     public static HashMap <String, Integer> boardCoord = new HashMap<>();

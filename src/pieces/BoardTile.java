@@ -1,21 +1,27 @@
-public class BoardTile {
+package pieces;
+
+import javax.swing.*;
+import java.util.*;
+import javax.swing.*;
+
+public class BoardTile extends JButton {
     private boolean whiteSquare;
-    private final int postionX;//(1,2,3,4,5,6,7,8)
-    private final int postionY;//(a,b,c,d,e,f,g,h)
+    private final int POSTIONX;//(1,2,3,4,5,6,7,8)
+    private final int POSTIONY;//(a,b,c,d,e,f,g,h)
     private Piece piece;
 
 
     public BoardTile(int x, int y, boolean white)
     {
-        postionX = x;
-        postionY = y;
+        POSTIONX = x;
+        POSTIONY = y;
         whiteSquare = white;
     }
     public BoardTile(Piece piece, int x, int y, boolean white)
     {
         this.piece = piece;
-        postionX = x;
-        postionY = y;
+        POSTIONX = x;
+        POSTIONY = y;
         whiteSquare = white;
     }
     public void setPiece(Piece piece) {
@@ -34,12 +40,12 @@ public class BoardTile {
         return whiteSquare;
     }
 
-    public int getPostionX() {
-        return postionX;
+    public int getPOSTIONX() {
+        return POSTIONX;
     }
 
-    public int getPostionY() {
-        return postionY;
+    public int getPOSTIONY() {
+        return POSTIONY;
     }
 
 }

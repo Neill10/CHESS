@@ -1,3 +1,5 @@
+package Tester;
+
 public class ChessBoard {
     String[][] board = new String[8][8];
 

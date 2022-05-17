@@ -1,18 +1,21 @@
+package pieces;
+
 import java.util.*;
 public abstract class Piece {
     private boolean white;
-    private boolean captured;
-    private int postionX;//(1,2,3,4,5,6,7,8)
-    private int postionY;//(a,b,c,d,e,f,g,h)
+    private int postionY;//(1,2,3,4,5,6,7,8)(COL)
+    private int postionX;//(a,b,c,d,e,f,g,h)(ROW)
     private String pieceName;
+    private ArrayList<BoardTile> possibleMoves;
+    private Board board;
 
-    public Piece(String pieceName, int x, int y,boolean captured,boolean white)
+    public Piece(String pieceName, int x, int y,boolean white)
     {
         this.pieceName = pieceName;
         postionX = x;
         postionY = y;
-        this.captured = captured;
         this.white = white;
+
 
     }
 
@@ -26,10 +29,6 @@ public abstract class Piece {
         return white;
     }
 
-    public boolean isCaptured() {
-        return captured;
-    }
-
     public int getPostionX() {
         return postionX;
     }
@@ -37,13 +36,6 @@ public abstract class Piece {
     public int getPostionY() {
         return postionY;
     }
-    /*
-    public String[] possibleMoves()
-    {
-
-    }
-
-     */
 
     public String toString()
     {

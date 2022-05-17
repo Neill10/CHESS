@@ -1,13 +1,18 @@
+package pieces;
+
+import javax.naming.SizeLimitExceededException;
+
 public class Board {
     private BoardTile[][] board;
+    public static final int LEN = 8;
 
     public Board()//creates a new board
     {
-        board = new BoardTile[8][8];
+        board = new BoardTile[LEN][LEN];
 
-        for(int i = 0; i < 8;i++)
+        for(int i = 0; i < LEN;i++)
         {
-            for (int x = 0; x < 8;x++)
+            for (int x = 0; x < LEN;x++)
             {
                 if(x % 2 == 1)
                 {
@@ -23,8 +28,8 @@ public class Board {
 
     public void fillBoard()
     {
-        Queen qW = new Queen("Queen",1,4,false,true);
-        Queen qB = new Queen("Queen",1,4,false,true);
+        Queen qW = new Queen(1,4,true);
+        Queen qB = new Queen(8,4,false);
         //Queens
         board [0][3] = new BoardTile(qW,1,4,true);
         board [7][3] = new BoardTile(qB,8,4,false);
@@ -64,9 +69,9 @@ public class Board {
     }
     public void printBoard()
     {
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < LEN; i++)
         {
-            for(int x = 0; x < 8;x++)
+            for(int x = 0; x < LEN;x++)
             {
                 if(board[i][x].getPiece() != null)
                 {
