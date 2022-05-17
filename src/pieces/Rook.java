@@ -16,12 +16,57 @@ public class Rook extends Piece{
 
     @Override
     public ArrayList<BoardTile> possibleMoves() {
-        int row = this.getPostionY();
-        int col = this.getPostionX();
-        for(int i = 0; i < Board.LEN;i++)
-        {
+        ArrayList<BoardTile> possibleMoves = new ArrayList<BoardTile>();
+        int row = this.getPositionX();
+        int col = this.getPositionY();
 
+        int diff = row;
+        
+        //upward movement (using row) // need to consider after enemy pieces
+        while(diff < 8)
+        {
+            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];
+            if(currentTile.isOccupied()) {
+                if (isWhite() == currentTile.getPiece().isWhite())
+                {
+                    possibleMoves.add(currentTile);
+                    diff++;
+                }
+                else
+                {
+                    break;
+                }
+                diff++;
+            }
+            else
+            {
+                possibleMoves.add(currentTile);
+                diff++;
+            }
+        }
+        //downwards movement (using row)
+        diff = row;
+        while(diff >= 0)
+        {
+            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];
+            if(currentTile.isOccupied()) {
+                if (isWhite() == currentTile.getPiece().isWhite())
+                {
+                    possibleMoves.add(currentTile);
+                    diff--;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                possibleMoves.add(currentTile);
+                diff--;
+            }
         }
 
+        return possibleMoves;
     }
 }

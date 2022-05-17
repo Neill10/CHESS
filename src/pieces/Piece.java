@@ -3,20 +3,22 @@ package pieces;
 import java.util.*;
 public abstract class Piece {
     private boolean white;
-    private int postionY;//(1,2,3,4,5,6,7,8)(COL)
-    private int postionX;//(a,b,c,d,e,f,g,h)(ROW)
+    private int positionX;//(a,b,c,d,e,f,g,h)(ROW)
+    private int positionY;//(1,2,3,4,5,6,7,8)(COL)
     private String pieceName;
     private ArrayList<BoardTile> possibleMoves;
-    private Board board;
+    private Board board;//associated board
 
     public Piece(String pieceName, int x, int y,boolean white)
     {
         this.pieceName = pieceName;
-        postionX = x;
-        postionY = y;
+        positionX = x;
+        positionY = y;
         this.white = white;
+    }
 
-
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public abstract boolean move(Board b, int x, int y);
@@ -29,12 +31,12 @@ public abstract class Piece {
         return white;
     }
 
-    public int getPostionX() {
-        return postionX;
+    public int getPositionX() {
+        return positionX;
     }
 
-    public int getPostionY() {
-        return postionY;
+    public int getPositionY() {
+        return positionY;
     }
 
     public String toString()
@@ -42,5 +44,7 @@ public abstract class Piece {
         return "piece";
     }
 
-
+    public Board getAssociatedBoard() {
+        return board;
+    }
 }

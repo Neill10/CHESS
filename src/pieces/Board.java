@@ -25,6 +25,17 @@ public class Board {
         }
     }
 
+    public void assignBoard()
+    {
+        for(int i = 0; i < LEN; i++)
+        {
+            for(int x = 0 ; x < LEN ; x++)
+            {
+                if(board[i][x].isOccupied())
+                board[i][x].getPiece().setBoard(this);
+            }
+        }
+    }
 
     public void fillBoard()
     {
