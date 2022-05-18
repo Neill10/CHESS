@@ -24,6 +24,7 @@ public class BoardTile extends JButton {
         POSITIONY = y;
         whiteSquare = white;
     }
+
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
@@ -46,6 +47,11 @@ public class BoardTile extends JButton {
 
     public int getPOSITIONY() {
         return POSITIONY;
+    }
+
+    public String toString()
+    {
+        return "(" + POSITIONX +"," + POSITIONY + ")";
     }
 
 }
