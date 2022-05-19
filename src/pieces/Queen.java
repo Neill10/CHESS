@@ -31,7 +31,6 @@ public class Queen extends Piece {
             }
         }
         return false;
-
          */
     }
 
@@ -43,6 +42,6 @@ public class Queen extends Piece {
     @Override
     public String toString()
     {
-        return "Q";
+        return super.toString() + "Q";
     }
 }
