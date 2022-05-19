@@ -20,15 +20,15 @@ public class Rook extends Piece{
         int row = this.getPositionX();
         int col = this.getPositionY();
 
-        int diff = row + 1;
+        int diff = col - 1;
         
         //upward movement (using row)
         // need to consider after enemy pieces
         while(diff >= 0 && diff < 8)
         {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];
+            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];//changes rows (height)
             if(currentTile.isOccupied()) {
-                if (isWhite() == currentTile.getPiece().isWhite())
+                if (isWhite() != currentTile.getPiece().isWhite())
                 {
                     possibleMoves.add(currentTile);
                     break;
@@ -45,15 +45,15 @@ public class Rook extends Piece{
             }
         }
         //downwards movement (using row)
-        diff = row - 1;
+        diff = col + 1;
         while(diff < 8 && diff >= 0)
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];
             if(currentTile.isOccupied()) {
-                if (isWhite() == currentTile.getPiece().isWhite())
+                if (isWhite() != currentTile.getPiece().isWhite())
                 {
                     possibleMoves.add(currentTile);
-                   break;
+                    break;
                 }
                 else
                 {
@@ -68,12 +68,12 @@ public class Rook extends Piece{
         }
 
         //leftwards movement
-        diff = col -1;
+        diff = row - 1;
         while(diff >= 0 && diff < 8)
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[col][diff];
             if(currentTile.isOccupied()) {
-                if (isWhite() == currentTile.getPiece().isWhite())
+                if (isWhite() != currentTile.getPiece().isWhite())
                 {
                     possibleMoves.add(currentTile);
                     break;
@@ -91,12 +91,12 @@ public class Rook extends Piece{
         }
 
         //rightwards movement
-        diff = col +1;
+        diff = row + 1 ;
         while(diff < 8 && diff >= 0)
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[col][diff];
             if(currentTile.isOccupied()) {
-                if (isWhite() == currentTile.getPiece().isWhite())
+                if (isWhite() != currentTile.getPiece().isWhite())
                 {
                     possibleMoves.add(currentTile);
                     break;
@@ -112,11 +112,12 @@ public class Rook extends Piece{
                 diff++;
             }
         }
+        setPossibleMoves(possibleMoves);
         return possibleMoves;
     }
 
     @Override
     public String toString() {
-        return "R";
+        return super.toString() + "R";
     }
 }

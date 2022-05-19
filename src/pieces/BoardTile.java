@@ -1,6 +1,8 @@
 package pieces;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
@@ -25,6 +27,22 @@ public class BoardTile extends JButton {
         whiteSquare = white;
     }
 
+    public void setPossibleMoves()
+    {
+        piece.possibleMoves();
+    }
+
+    public JButton createTileButton()
+    {
+        JButton tile = new JButton("Tile");
+        tile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Clicked");
+            }
+        });
+        tile.setVisible(true);
+        return tile;
+    }
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
@@ -52,6 +70,11 @@ public class BoardTile extends JButton {
     public String toString()
     {
         return "(" + POSITIONX +"," + POSITIONY + ")";
+    }
+
+    public void createFrame()
+    {
+
     }
 
 }

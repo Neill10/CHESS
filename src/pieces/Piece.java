@@ -15,13 +15,14 @@ public abstract class Piece {
         positionX = x;
         positionY = y;
         this.white = white;
+        possibleMoves = new ArrayList<BoardTile>();
     }
 
     public void setBoard(Board board) {
         this.board = board;
     }
 
-    public abstract boolean move(Board b, int x, int y);
+    public abstract boolean move(Board b, int x, int y);//returns if piece successfully moved
 
     public abstract ArrayList<BoardTile> possibleMoves();
 
@@ -41,10 +42,23 @@ public abstract class Piece {
 
     public String toString()
     {
-        return "piece";
+
+        if(white)
+        {
+            return "W";
+        }
+        else
+        {
+            return "B";
+        }
     }
 
     public Board getAssociatedBoard() {
         return board;
     }
+
+    public void setPossibleMoves(ArrayList<BoardTile> possibleMoves) {
+        this.possibleMoves = possibleMoves;
+    }
+
 }
