@@ -18,13 +18,22 @@ public abstract class Piece {
         possibleMoves = new ArrayList<BoardTile>();
     }
 
+    //public abstract boolean move(int x, int y);//returns if piece successfully moved
+    public boolean move(int x, int y) {
+        for(BoardTile tile : getPossibleMoves())
+        {
+            if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public abstract ArrayList<BoardTile> possibleMoves();
+
     public void setBoard(Board board) {
         this.board = board;
     }
-
-    public abstract boolean move(Board b, int x, int y);//returns if piece successfully moved
-
-    public abstract ArrayList<BoardTile> possibleMoves();
 
     //getter methods
     public boolean isWhite()
@@ -59,6 +68,11 @@ public abstract class Piece {
 
     public void setPossibleMoves(ArrayList<BoardTile> possibleMoves) {
         this.possibleMoves = possibleMoves;
+    }
+
+    public ArrayList<BoardTile> getPossibleMoves()
+    {
+        return possibleMoves;
     }
 
 }

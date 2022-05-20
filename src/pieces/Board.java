@@ -50,12 +50,12 @@ public class Board {
         Ex: White rook on the left side would be : rWL
          */
         //for testing
-        //assigns empty boardtile spaces
+        //assigns empty boardtile spaces``
         for(int i = 0; i < LEN; i++)
         {
             for(int y = 0 ; y < LEN ; y++)
             {
-                if((i + y) % 2 == 0)
+                if((i + y) % 2 == 1)
                 {
                     board[i][y] = new BoardTile(i,y,false);
                 }
@@ -114,11 +114,22 @@ public class Board {
         board [0][5] = "B";
         board [7][2] = "B";
         board [7][5] = "B";
+        */
 
+        Bishop bBL = new Bishop(0,2,false);
+        Bishop bBR = new Bishop(0,5,false);
+        Bishop bWL = new Bishop(7,1,true);
+        Bishop bWR = new Bishop(7,6,true);
+
+        board [0][2] = new BoardTile(bBL,0,2,false);
+        board [0][5] = new BoardTile(bBR,0,5,true);
+        board [7][1] = new BoardTile(bWL,7,1,true);
+        board [7][6] = new BoardTile(bWR,7,6,false);
+
+        /*
         //Kings
         board [0][4] = "K";
         board [7][4] = "K";
-
 
         //Pawns
         for (int i = 0; i < 8; i++) {
@@ -128,6 +139,26 @@ public class Board {
 
          */
 
+    }
+    public void printTiles()
+    {
+        System.out.println("-------------------------------");
+        for(int i = 0; i < LEN; i++)
+        {
+            for(int x = 0; x < LEN;x++)
+            {
+                if (board[i][x].isWhiteSquare())
+                {
+                    System.out.print(" WX ");
+                }
+                else
+                {
+                    System.out.print(" BX ");
+
+                }
+            }
+            System.out.print("\n");
+        }
     }
     public void printBoard()
     {

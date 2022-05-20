@@ -9,10 +9,21 @@ public class Rook extends Piece{
         super("Rook",x,y,white);
     }
 
+    /*
     @Override
-    public boolean move(Board b, int x, int y) {
-        return true;
+    public boolean move(int x, int y) {
+
+        for(BoardTile tile : getPossibleMoves())
+        {
+            if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
+            {
+                return true;
+            }
+        }
+        return false;
     }
+
+     */
 
     @Override
     public ArrayList<BoardTile> possibleMoves() { //is not assigned to piece instance variable possible moves

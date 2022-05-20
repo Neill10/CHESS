@@ -9,6 +9,7 @@ public class Main {
         b.fillBoard();
         b.assignBoard();
         b.printBoard();
+        b.printTiles();
         System.out.println(b.getBoard()[0][0].getPiece().possibleMoves());
         b.createFrame();
     }
