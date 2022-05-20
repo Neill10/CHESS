@@ -26,9 +26,9 @@ public class Rook extends Piece{
      */
 
     @Override
-    public ArrayList<BoardTile> possibleMoves() { //is not assigned to piece instance variable possible moves
+    public ArrayList<BoardTile> possibleMoves() {
         ArrayList<BoardTile> rookPossibleMoves = new ArrayList<BoardTile>();
-        int row = this.getPositionX();
+        int row = this.getPositionX(); // row = 7, col = 0
         int col = this.getPositionY();
 
         int diff = col - 1;
@@ -37,7 +37,7 @@ public class Rook extends Piece{
         // need to consider after enemy pieces
         while(diff >= 0 && diff < 8)
         {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];//changes rows (height)
+            BoardTile currentTile = getAssociatedBoard().getBoard()[row][diff];//changes rows (height)
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
@@ -59,7 +59,7 @@ public class Rook extends Piece{
         diff = col + 1;
         while(diff >= 0 && diff < 8)
         {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];
+            BoardTile currentTile = getAssociatedBoard().getBoard()[row][diff];
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
@@ -82,7 +82,7 @@ public class Rook extends Piece{
         diff = row - 1;
         while(diff >= 0 && diff < 8)
         {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[col][diff];
+            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][col];
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
@@ -105,7 +105,7 @@ public class Rook extends Piece{
         diff = row + 1 ;
         while(diff >= 0 && diff < 8)
         {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[col][diff];
+            BoardTile currentTile = getAssociatedBoard().getBoard()[diff][col];
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
