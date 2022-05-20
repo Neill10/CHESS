@@ -20,7 +20,7 @@ public abstract class Piece {
 
     //public abstract? boolean move(int x, int y);//returns if piece successfully moved
     public boolean move(int x, int y) {
-        possibleMoves();
+        possibleMoves = possibleMoves();
         for(BoardTile tile : getPossibleMoves())
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)

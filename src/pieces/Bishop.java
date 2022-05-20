@@ -10,13 +10,12 @@ public class Bishop extends Piece{
     }
 
     public ArrayList<BoardTile> possibleMoves() { //is not assigned to piece instance variable possible moves
-        ArrayList<BoardTile> possibleMoves = new ArrayList<BoardTile>();
+        ArrayList<BoardTile> bishopPossibleMoves = new ArrayList<BoardTile>();
         int row = this.getPositionX();
         int col = this.getPositionY();
 
         int diffX = col - 1;
         int diffY = row - 1;
-
         //upward left movement (using row)
         while(diffX >= 0 && diffX < 8 && diffY >= 0 && diffY < 8)
         {
@@ -24,7 +23,7 @@ public class Bishop extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    bishopPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -34,7 +33,7 @@ public class Bishop extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                bishopPossibleMoves.add(currentTile);
                 diffX--;
                 diffY--;
             }
@@ -48,7 +47,7 @@ public class Bishop extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    bishopPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -58,7 +57,7 @@ public class Bishop extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                bishopPossibleMoves.add(currentTile);
                 diffX++;
                 diffY--;
             }
@@ -73,7 +72,7 @@ public class Bishop extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    bishopPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -83,7 +82,7 @@ public class Bishop extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                bishopPossibleMoves.add(currentTile);
                 diffX++;
                 diffY--;
             }
@@ -98,7 +97,7 @@ public class Bishop extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    bishopPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -108,13 +107,12 @@ public class Bishop extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                bishopPossibleMoves.add(currentTile);
                 diffX++;
                 diffY++;
             }
         }
-        setPossibleMoves(possibleMoves);
-        return possibleMoves;
+        return bishopPossibleMoves;
     }
 
     @Override

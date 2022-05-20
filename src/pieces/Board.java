@@ -78,7 +78,7 @@ public class Board {
         board [7][3] = new BoardTile(qB,8,4,false);
          */
         Queen qB = new Queen(0,3,false);
-        Queen qW = new Queen(8,4,true);
+        Queen qW = new Queen(7,3,true);
 
         board [0][3] = new BoardTile(qB,0,3,false);
         board [7][3] = new BoardTile(qW,7,3,true);
@@ -145,6 +145,8 @@ public class Board {
     public void printTiles()
     {
         System.out.println("-------------------------------");
+        System.out.println("tiles with no pieces");
+
         for(int i = 0; i < LEN; i++)
         {
             for(int x = 0; x < LEN;x++)
@@ -164,6 +166,7 @@ public class Board {
     }
     public void printBoard()
     {
+        System.out.println("Board with pieces");
         for(int i = 0; i < LEN; i++)
         {
             for(int x = 0; x < LEN;x++)

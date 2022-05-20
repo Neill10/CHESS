@@ -27,7 +27,7 @@ public class Rook extends Piece{
 
     @Override
     public ArrayList<BoardTile> possibleMoves() { //is not assigned to piece instance variable possible moves
-        ArrayList<BoardTile> possibleMoves = new ArrayList<BoardTile>();
+        ArrayList<BoardTile> rookPossibleMoves = new ArrayList<BoardTile>();
         int row = this.getPositionX();
         int col = this.getPositionY();
 
@@ -41,7 +41,7 @@ public class Rook extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    rookPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -51,7 +51,7 @@ public class Rook extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                rookPossibleMoves.add(currentTile);
                 diff--;
             }
         }
@@ -63,7 +63,7 @@ public class Rook extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    rookPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -73,7 +73,7 @@ public class Rook extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                rookPossibleMoves.add(currentTile);
                 diff++;
             }
         }
@@ -86,7 +86,7 @@ public class Rook extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    rookPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -96,7 +96,7 @@ public class Rook extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                rookPossibleMoves.add(currentTile);
                 diff--;
             }
         }
@@ -109,7 +109,7 @@ public class Rook extends Piece{
             if(currentTile.isOccupied()) {
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
-                    possibleMoves.add(currentTile);
+                    rookPossibleMoves.add(currentTile);
                     break;
                 }
                 else
@@ -119,12 +119,11 @@ public class Rook extends Piece{
             }
             else
             {
-                possibleMoves.add(currentTile);
+                rookPossibleMoves.add(currentTile);
                 diff++;
             }
         }
-        setPossibleMoves(possibleMoves);
-        return possibleMoves;
+        return rookPossibleMoves;
     }
 
     @Override
