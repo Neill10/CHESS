@@ -57,7 +57,7 @@ public class Rook extends Piece{
         }
         //downwards movement (using row)
         diff = col + 1;
-        while(diff < 8 && diff >= 0)
+        while(diff >= 0 && diff < 8)
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diff][row];
             if(currentTile.isOccupied()) {
@@ -103,7 +103,7 @@ public class Rook extends Piece{
 
         //rightwards movement
         diff = row + 1 ;
-        while(diff < 8 && diff >= 0)
+        while(diff >= 0 && diff < 8)
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[col][diff];
             if(currentTile.isOccupied()) {

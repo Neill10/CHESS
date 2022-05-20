@@ -36,6 +36,7 @@ public class Bishop extends Piece{
             {
                 possibleMoves.add(currentTile);
                 diffX--;
+                diffY--;
             }
         }
         //upwards right movement (using row) //(2,5)
@@ -59,37 +60,14 @@ public class Bishop extends Piece{
             {
                 possibleMoves.add(currentTile);
                 diffX++;
+                diffY--;
             }
         }
 
         //downwards left movement
         diffX = row + 1;
         diffY = col - 1;
-        while(diffX >= 0 && diffX < 8)
-        {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];
-            if(currentTile.isOccupied()) {
-                if (isWhite() != currentTile.getPiece().isWhite())
-                {
-                    possibleMoves.add(currentTile);
-                    break;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            else
-            {
-                possibleMoves.add(currentTile);
-                diffX--;
-            }
-        }
-
-        //downwards right movement
-        diffX = row + 1 ;
-        diffY = col + 1;
-        while(diffX < 8 && diffX >= 0)
+        while(diffX >= 0 && diffX < 8 && diffY >= 0 && diffY < 8)
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];
             if(currentTile.isOccupied()) {
@@ -107,6 +85,32 @@ public class Bishop extends Piece{
             {
                 possibleMoves.add(currentTile);
                 diffX++;
+                diffY--;
+            }
+        }
+
+        //downwards right movement
+        diffX = row + 1 ;
+        diffY = col + 1;
+        while(diffX >= 0 && diffX < 8 && diffY >= 0 && diffY < 8)
+        {
+            BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];
+            if(currentTile.isOccupied()) {
+                if (isWhite() != currentTile.getPiece().isWhite())
+                {
+                    possibleMoves.add(currentTile);
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                possibleMoves.add(currentTile);
+                diffX++;
+                diffY++;
             }
         }
         setPossibleMoves(possibleMoves);

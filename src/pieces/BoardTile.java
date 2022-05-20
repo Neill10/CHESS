@@ -72,9 +72,5 @@ public class BoardTile extends JButton {
         return "(" + POSITIONX +"," + POSITIONY + ")";
     }
 
-    public void createFrame()
-    {
-
-    }
 
 }

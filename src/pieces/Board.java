@@ -11,21 +11,23 @@ public class Board {
     private BoardTile[][] board;
     public static final int LEN = 8;
 
-    public Board()//creates a new board
+    public Board()//creates a new board with no pieces
     {
         board = new BoardTile[LEN][LEN];
 
-        for(int i = 0; i < LEN;i++)
+        for(int i = 0; i < LEN; i++)
         {
-            for (int x = 0; x < LEN;x++)
+            for(int y = 0 ; y < LEN ; y++)
             {
-                if(x % 2 == 1)
+                if((i + y) % 2 == 0)
                 {
-                    board[i][x] = new BoardTile(i+1,x+1,true);
+                    board[i][y] = new BoardTile(i,y,true);
                 }
-                else {
-                    board[i][x] = new BoardTile(i+1,x+1,false);
+                else
+                {
+                    board[i][y] = new BoardTile(i,y,false);
                 }
+
             }
         }
     }
@@ -55,13 +57,13 @@ public class Board {
         {
             for(int y = 0 ; y < LEN ; y++)
             {
-                if((i + y) % 2 == 1)
+                if((i + y) % 2 == 0)
                 {
-                    board[i][y] = new BoardTile(i,y,false);
+                    board[i][y] = new BoardTile(i,y,true);
                 }
                 else
                 {
-                    board[i][y] = new BoardTile(i,y,true);
+                    board[i][y] = new BoardTile(i,y,false);
                 }
 
             }
@@ -78,8 +80,8 @@ public class Board {
         Queen qB = new Queen(0,3,false);
         Queen qW = new Queen(8,4,true);
 
-        board [0][3] = new BoardTile(qB,0,3,true);
-        board [7][3] = new BoardTile(qW,7,3,false);
+        board [0][3] = new BoardTile(qB,0,3,false);
+        board [7][3] = new BoardTile(qW,7,3,true);
 
 
         // Rooks
@@ -97,10 +99,10 @@ public class Board {
         Rook rBR = new Rook(0,7,false);
         Rook rWL = new Rook(7,0,true);
         Rook rWR = new Rook(7,7,true);
-        board [0][0] = new BoardTile(rBL,0,0,false);
-        board [0][7] = new BoardTile(rBR,0,7,true);
-        board [7][0] = new BoardTile(rWL,7,0,true);
-        board [7][7] = new BoardTile(rWR,7,7,false);
+        board [0][0] = new BoardTile(rBL,0,0,true);
+        board [0][7] = new BoardTile(rBR,0,7,false);
+        board [7][0] = new BoardTile(rWL,7,0,false);
+        board [7][7] = new BoardTile(rWR,7,7,true);
 
         /*
         // Knights
@@ -118,13 +120,13 @@ public class Board {
 
         Bishop bBL = new Bishop(0,2,false);
         Bishop bBR = new Bishop(0,5,false);
-        Bishop bWL = new Bishop(7,1,true);
-        Bishop bWR = new Bishop(7,6,true);
+        Bishop bWL = new Bishop(7,2,true);
+        Bishop bWR = new Bishop(7,5,true);
 
-        board [0][2] = new BoardTile(bBL,0,2,false);
-        board [0][5] = new BoardTile(bBR,0,5,true);
-        board [7][1] = new BoardTile(bWL,7,1,true);
-        board [7][6] = new BoardTile(bWR,7,6,false);
+        board [0][2] = new BoardTile(bBL,0,2,true);
+        board [0][5] = new BoardTile(bBR,0,5,false);
+        board [7][2] = new BoardTile(bWL,7,2,true);
+        board [7][5] = new BoardTile(bWR,7,5,false);
 
         /*
         //Kings
@@ -149,11 +151,11 @@ public class Board {
             {
                 if (board[i][x].isWhiteSquare())
                 {
-                    System.out.print(" WX ");
+                    System.out.print(" W ");
                 }
                 else
                 {
-                    System.out.print(" BX ");
+                    System.out.print(" B ");
 
                 }
             }
@@ -173,11 +175,11 @@ public class Board {
                 else {
                     if (board[i][x].isWhiteSquare())
                     {
-                        System.out.print(" WX ");
+                        System.out.print(" W  ");
                     }
                     else
                     {
-                        System.out.print(" BX ");
+                        System.out.print(" B  ");
 
                     }
 

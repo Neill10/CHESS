@@ -18,8 +18,9 @@ public abstract class Piece {
         possibleMoves = new ArrayList<BoardTile>();
     }
 
-    //public abstract boolean move(int x, int y);//returns if piece successfully moved
+    //public abstract? boolean move(int x, int y);//returns if piece successfully moved
     public boolean move(int x, int y) {
+        possibleMoves();
         for(BoardTile tile : getPossibleMoves())
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
