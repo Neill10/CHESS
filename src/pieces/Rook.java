@@ -3,10 +3,11 @@ package pieces;
 import java.util.ArrayList;
 
 public class Rook extends Piece{
-
+    private boolean firstMove;
     public Rook(int x, int y,boolean white)
     {
         super("Rook",x,y,white);
+        firstMove = true;
     }
 
     /*

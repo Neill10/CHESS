@@ -104,12 +104,24 @@ public class Board {
         board [7][0] = new BoardTile(rWL,7,0,false);
         board [7][7] = new BoardTile(rWR,7,7,true);
 
-        /*
+
         // Knights
+        /*
         board [0][1] = "N";
         board [0][6] = "N";
         board [7][1] = "N";
         board [7][6] = "N";
+
+         */
+        Knight nBL = new Knight(0,1,false);
+        Knight nBR = new Knight(0,6,false);
+        Knight nWL = new Knight(7,1,true);
+        Knight nWR = new Knight(7,6,true);
+        board [0][1] = new BoardTile(nBL,0,1,true);
+        board [0][6] = new BoardTile(nBR,0,6,false);
+        board [7][1] = new BoardTile(nWL,7,1,false);
+        board [7][6] = new BoardTile(nWR,7,6,true);
+        /*
 
         //Bishops
         board [0][2] = "B";
@@ -132,7 +144,12 @@ public class Board {
         //Kings
         board [0][4] = "K";
         board [7][4] = "K";
-
+        */
+        King kB = new King(0,4,false);
+        King kW = new King(7,4,true);
+        board [0][4] = new BoardTile(kB,0,4,true);
+        board [7][4] = new BoardTile(kW,7,4,false);
+        /*
         //Pawns
         for (int i = 0; i < 8; i++) {
             board[1][i] = "P";
