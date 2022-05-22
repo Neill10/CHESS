@@ -17,7 +17,7 @@ public class Bishop extends Piece{
         int diffX = col - 1;
         int diffY = row - 1;
         //upward left movement (using row)
-        while(diffX >= 0 && diffX < 8 && diffY >= 0 && diffY < 8)
+        while(inBounds(diffX) && inBounds(diffY))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];//changes rows (height)
             if(currentTile.isOccupied()) {
@@ -41,7 +41,7 @@ public class Bishop extends Piece{
         //upwards right movement (using row) //(2,5)
         diffX = col + 1;
         diffY = row - 1;
-        while(diffX < 8 && diffX >= 0 && diffY < 8 && diffY>= 0)
+        while(inBounds(diffX) && inBounds(diffY))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];
             if(currentTile.isOccupied()) {
@@ -66,7 +66,7 @@ public class Bishop extends Piece{
         //downwards left movement
         diffX = row + 1;
         diffY = col - 1;
-        while(diffX >= 0 && diffX < 8 && diffY >= 0 && diffY < 8)
+        while(inBounds(diffX) && inBounds(diffY))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];
             if(currentTile.isOccupied()) {
@@ -91,7 +91,7 @@ public class Bishop extends Piece{
         //downwards right movement
         diffX = row + 1 ;
         diffY = col + 1;
-        while(diffX >= 0 && diffX < 8 && diffY >= 0 && diffY < 8)
+        while(inBounds(diffX) && inBounds(diffY))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffX][diffY];
             if(currentTile.isOccupied()) {

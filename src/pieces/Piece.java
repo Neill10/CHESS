@@ -50,17 +50,10 @@ public abstract class Piece {
         return positionY;
     }
 
-    public String toString()
-    {
 
-        if(white)
-        {
-            return "W";
-        }
-        else
-        {
-            return "B";
-        }
+    public boolean inBounds(int num)
+    {
+        return num >= 0 && num < 8;
     }
 
     public Board getAssociatedBoard() {
@@ -76,5 +69,16 @@ public abstract class Piece {
         return possibleMoves;
     }
 
+    public String toString()
+    {
 
+        if(white)
+        {
+            return "W";
+        }
+        else
+        {
+            return "B";
+        }
+    }
 }

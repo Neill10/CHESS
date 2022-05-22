@@ -34,6 +34,15 @@ public class King extends Piece {
                 {1, -1}//bot left
         };
         for (int[] o : offsets) {
+            if(inBounds(o[0] + getPositionX()) && inBounds(o[1] + getPositionY())) {
+                BoardTile currentTile = getAssociatedBoard().getBoard()[o[0] + getPositionX()][o[1] + getPositionY()];
+                if (currentTile.isOccupied() && isWhite() != currentTile.getPiece().isWhite()) {
+                    kingPossibleMoves.add(currentTile);
+                } else if (!currentTile.isOccupied()) {
+                    kingPossibleMoves.add(currentTile);
+                }
+            }
+            /* old code
             if (o[0] + getPositionX() < 8 && o[0] + getPositionX() >= 0 && o[1] + getPositionY() < 8 && o[1] + getPositionY() >= 0) {
                 BoardTile currentTile = getAssociatedBoard().getBoard()[o[0] + getPositionX()][o[1] + getPositionY()];
                 if (currentTile.isOccupied() && isWhite() != currentTile.getPiece().isWhite()) {
@@ -42,6 +51,7 @@ public class King extends Piece {
                     kingPossibleMoves.add(currentTile);
                 }
             }
+             */
         }
         return kingPossibleMoves;
     }

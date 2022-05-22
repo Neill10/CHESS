@@ -79,10 +79,9 @@ public class Board {
          */
         Queen qB = new Queen(0,3,false);
         Queen qW = new Queen(7,3,true);
-
-        board [0][3] = new BoardTile(qB,0,3,false);
-        board [7][3] = new BoardTile(qW,7,3,true);
-
+        /////////////////////////////////////////////////////////point of change
+        board [0][3].setPiece(qB);
+        board [7][3].setPiece(qW);
 
         // Rooks
         /*
@@ -99,10 +98,10 @@ public class Board {
         Rook rBR = new Rook(0,7,false);
         Rook rWL = new Rook(7,0,true);
         Rook rWR = new Rook(7,7,true);
-        board [0][0] = new BoardTile(rBL,0,0,true);
-        board [0][7] = new BoardTile(rBR,0,7,false);
-        board [7][0] = new BoardTile(rWL,7,0,false);
-        board [7][7] = new BoardTile(rWR,7,7,true);
+        board [0][0].setPiece(rBL);
+        board [0][7].setPiece(rBR);
+        board [7][0].setPiece(rWL);
+        board [7][7].setPiece(rWR);
 
 
         // Knights
@@ -117,10 +116,10 @@ public class Board {
         Knight nBR = new Knight(0,6,false);
         Knight nWL = new Knight(7,1,true);
         Knight nWR = new Knight(7,6,true);
-        board [0][1] = new BoardTile(nBL,0,1,true);
-        board [0][6] = new BoardTile(nBR,0,6,false);
-        board [7][1] = new BoardTile(nWL,7,1,false);
-        board [7][6] = new BoardTile(nWR,7,6,true);
+        board [0][1].setPiece(nBL);
+        board [0][6].setPiece(nBR);
+        board [7][1].setPiece(nWL);
+        board [7][6].setPiece(nWR);
         /*
 
         //Bishops
@@ -135,10 +134,10 @@ public class Board {
         Bishop bWL = new Bishop(7,2,true);
         Bishop bWR = new Bishop(7,5,true);
 
-        board [0][2] = new BoardTile(bBL,0,2,true);
-        board [0][5] = new BoardTile(bBR,0,5,false);
-        board [7][2] = new BoardTile(bWL,7,2,true);
-        board [7][5] = new BoardTile(bWR,7,5,false);
+        board [0][2].setPiece(bBL);
+        board [0][5].setPiece(bBR);
+        board [7][2].setPiece(bWL);
+        board [7][5].setPiece(bWR);
 
         /*
         //Kings
@@ -147,16 +146,22 @@ public class Board {
         */
         King kB = new King(0,4,false);
         King kW = new King(7,4,true);
-        board [0][4] = new BoardTile(kB,0,4,true);
-        board [7][4] = new BoardTile(kW,7,4,false);
+        board [0][4].setPiece(kB);
+        board [7][4].setPiece(kW);
         /*
         //Pawns
         for (int i = 0; i < 8; i++) {
             board[1][i] = "P";
             board[6][i] = "P";
         }
-
          */
+        for(int i = 0; i < 8; i++)
+        {
+            Pawn pB = new Pawn(1,i,false);
+            board[1][i].setPiece(pB);
+            Pawn pW = new Pawn(6,i,true);
+            board[6][i].setPiece(pW);
+        }
 
     }
     public void printTiles()

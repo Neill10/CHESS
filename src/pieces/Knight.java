@@ -31,6 +31,17 @@ public class Knight extends Piece{
                 {1, 2} //left bot
         };
         for (int[] o : offsets) {
+            if(inBounds(o[0] + getPositionX()) && inBounds(o[1] + getPositionY())) {
+                BoardTile currentTile = getAssociatedBoard().getBoard()[o[0] + getPositionX()][o[1] + getPositionY()];
+                if (currentTile.isOccupied() && isWhite() != currentTile.getPiece().isWhite()) {
+                    knightPossibleMoves.add(currentTile);
+                }
+                else if(!currentTile.isOccupied())
+                {
+                    knightPossibleMoves.add(currentTile);
+                }
+            }
+            /*
             if(o[0] + getPositionX() < 8 && o[0] + getPositionX() >= 0 && o[1] + getPositionY() < 8 && o[1] + getPositionY() >= 0 ) {
                 BoardTile currentTile = getAssociatedBoard().getBoard()[o[0] + getPositionX()][o[1] + getPositionY()];
                 if (currentTile.isOccupied() && isWhite() != currentTile.getPiece().isWhite()) {
@@ -40,12 +51,9 @@ public class Knight extends Piece{
                 {
                     knightPossibleMoves.add(currentTile);
                 }
-                /*
-                if (currentTile != null && (currentTile.isOccupied()) && isWhite() == currentTile.getPiece().isWhite()) {
-                    knightPossibleMoves.add(currentTile);
-                }
-                 */
             }
+
+             */
         }
         return knightPossibleMoves;
     }

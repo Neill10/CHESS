@@ -36,7 +36,7 @@ public class Rook extends Piece{
         
         //upward movement (using row)
         // need to consider after enemy pieces
-        while(diff >= 0 && diff < 8)
+        while(inBounds(diff))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[row][diff];//changes rows (height)
             if(currentTile.isOccupied()) {
@@ -58,7 +58,7 @@ public class Rook extends Piece{
         }
         //downwards movement (using row)
         diff = col + 1;
-        while(diff >= 0 && diff < 8)
+        while(inBounds(diff))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[row][diff];
             if(currentTile.isOccupied()) {
@@ -81,7 +81,7 @@ public class Rook extends Piece{
 
         //leftwards movement
         diff = row - 1;
-        while(diff >= 0 && diff < 8)
+        while(inBounds(diff))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diff][col];
             if(currentTile.isOccupied()) {
@@ -104,7 +104,7 @@ public class Rook extends Piece{
 
         //rightwards movement
         diff = row + 1 ;
-        while(diff >= 0 && diff < 8)
+        while(inBounds(diff))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diff][col];
             if(currentTile.isOccupied()) {

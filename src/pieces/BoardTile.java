@@ -43,6 +43,7 @@ public class BoardTile extends JButton {
         tile.setVisible(true);
         return tile;
     }
+
     public void setPiece(Piece piece) {
         this.piece = piece;
     }

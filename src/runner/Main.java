@@ -18,9 +18,9 @@ public class Main {
         System.out.println("nWL" + b.getBoard()[7][1].getPiece().possibleMoves());
         System.out.println("kBL" + b.getBoard()[0][4].getPiece().possibleMoves());
         System.out.println("kWL" + b.getBoard()[7][4].getPiece().possibleMoves());
+        System.out.println("P10:" + b.getBoard()[1][0].getPiece().possibleMoves());
+        System.out.println(b.getBoard()[1][0].getPiece().move(3,0));//bishop test
 
-        System.out.println(b.getBoard()[0][2].getPiece().move(3,0));//bishop test
-
-        //b.createFrame();
+        b.createFrame();
     }
 }
