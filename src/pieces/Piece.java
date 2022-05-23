@@ -1,5 +1,6 @@
 package pieces;
 
+import javax.swing.*;
 import java.util.*;
 public abstract class Piece {
     private boolean white;
@@ -25,6 +26,7 @@ public abstract class Piece {
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
             {
+                board.getBoard()[x][y].setPiece(this);//replacings any pieces at new location
                 return true;
             }
         }
@@ -60,6 +62,11 @@ public abstract class Piece {
         return board;
     }
 
+    public String getPieceName()
+    {
+        return pieceName;
+    }
+
     public void setPossibleMoves(ArrayList<BoardTile> possibleMoves) {
         this.possibleMoves = possibleMoves;
     }
@@ -67,6 +74,18 @@ public abstract class Piece {
     public ArrayList<BoardTile> getPossibleMoves()
     {
         return possibleMoves;
+    }
+
+    public Icon getIcon()
+    {
+        if(isWhite())
+        {
+            return new ImageIcon("src/Assets/" + getPieceName() + "White.png");
+        }
+        else
+        {
+            return new ImageIcon("src/Assets/" + getPieceName() + "Black.png");
+        }
     }
 
     public String toString()

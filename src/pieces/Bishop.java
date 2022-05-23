@@ -6,7 +6,7 @@ public class Bishop extends Piece{
 
     public Bishop(int x, int y,boolean white)
     {
-        super("Bishop",x,y,white);
+        super("bishop",x,y,white);
     }
 
     public ArrayList<BoardTile> possibleMoves() { //is not assigned to piece instance variable possible moves

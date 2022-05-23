@@ -8,7 +8,7 @@ public class Pawn extends Piece {
     private boolean firstMove;
     public Pawn(int x, int y,boolean white)
     {
-        super("Pawn",x,y,white);
+        super("pawn",x,y,white);
         firstMove = true;
     }
 

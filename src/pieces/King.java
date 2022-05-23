@@ -8,7 +8,7 @@ public class King extends Piece {
     private boolean firstMove;
     public King(int x, int y,boolean white)
     {
-        super("King",x,y,white);
+        super("king",x,y,white);
         firstMove = true;
     }
 

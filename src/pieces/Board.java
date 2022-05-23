@@ -231,6 +231,22 @@ public class Board {
         f.add(b);
         f.add(tf);
          */
+        int x = 10;
+        int y = 10;
+        for(int i = 0; i < LEN ; i++) {
+
+            for(int a = 0 ; a < LEN;a++) {
+                JButton button = board[a][i].createTileButton();
+                button.setBounds(x,y,80,80);
+                f.add(button);
+                y += 80;
+            }
+            x += 80;
+            y = 10;
+        }
+
+
+        /*
         JButton button = board[0][0].createTileButton();
         button.setBounds(50,100,95,30);
         f.add(button);
@@ -241,22 +257,14 @@ public class Board {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        /*
-        File image = new File("src/Assets/blackSquare.png\"");
-        try {
-            ImageIO.read(image);
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
 
          */
-        //f.setIconImage();
-        f.setSize(500,500);
+        f.setSize(700,700);
+        f.setResizable(false);
         f.setLayout(null);
         f.setVisible(true);
     }
+
 
     public BoardTile[][] getBoard() {
         return board;

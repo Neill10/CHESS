@@ -8,6 +8,10 @@ public class JFrameTest2 {
         final JTextField tf=new JTextField();
         tf.setBounds(50,50, 150,20);
         JButton b = new JButton("Click Here");
+        b.setRolloverEnabled(true);
+        b.setRolloverIcon(new ImageIcon("src/Assets/whiteSquare.png"));
+        b.setIcon(new ImageIcon("src/Assets/blackSquare.png"));
+
         b.setBounds(50,100,95,30);
         b.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){

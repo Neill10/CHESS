@@ -6,7 +6,7 @@ public class Knight extends Piece{
 
     public Knight(int x, int y,boolean white)
     {
-        super("Knight",x,y,white);
+        super("knight",x,y,white);
     }
 
     public ArrayList<BoardTile> possibleMoves() {

@@ -1,8 +1,11 @@
 package pieces;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.*;
 import javax.swing.*;
 
@@ -34,14 +37,45 @@ public class BoardTile extends JButton {
 
     public JButton createTileButton()
     {
-        JButton tile = new JButton("Tile");
+        JButton tile = new JButton();
         tile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked");
             }
         });
+        if((getPOSITIONX() + getPOSITIONY()) % 2 == 0) {
+            try {
+                Image img = ImageIO.read(new File("src/Assets/whiteSquare.png"));
+                tile.setIcon(new ImageIcon(img));
+            } catch (Exception ex) {
+                System.out.println(ex);
+                System.out.println("no whiteSquare file found");
+            }
+        }
+        else
+        {
+            try {
+                Image img = ImageIO.read(new File("src/Assets/blackSquare.png"));
+                tile.setIcon(new ImageIcon(img));
+            } catch (Exception ex) {
+                System.out.println(ex);
+                System.out.println("no blackSquare file found");
+            }
+        }
+        tile.setRolloverEnabled(true);
+        setOverLay(tile);
         tile.setVisible(true);
         return tile;
+    }
+
+
+    public void setOverLay(JButton b)
+    {
+        if(isOccupied())
+        {
+            b.setIcon(piece.getIcon());
+            System.out.println("done");
+        }
     }
 
     public void setPiece(Piece piece) {

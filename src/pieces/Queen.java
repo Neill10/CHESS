@@ -7,7 +7,7 @@ public class Queen extends Piece {
 
     public Queen(int x, int y,boolean white)
     {
-        super("Queen",x,y,white);
+        super("queen",x,y,white);
     }
 
     /*

@@ -6,7 +6,7 @@ public class Rook extends Piece{
     private boolean firstMove;
     public Rook(int x, int y,boolean white)
     {
-        super("Rook",x,y,white);
+        super("rook",x,y,white);
         firstMove = true;
     }
 
