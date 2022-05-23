@@ -10,8 +10,9 @@ import java.io.IOException;
 public class Board {
     private BoardTile[][] board;
     public static final int LEN = 8;
+    private boolean turn;//true == white's move, false == black's move
 
-    public Board()//creates a new board with no pieces
+    public Board()
     {
         board = new BoardTile[LEN][LEN];
 
@@ -30,6 +31,7 @@ public class Board {
 
             }
         }
+        turn = true;
     }
 
     public void assignBoard()
@@ -155,6 +157,7 @@ public class Board {
             board[6][i] = "P";
         }
          */
+        //pawns
         for(int i = 0; i < 8; i++)
         {
             Pawn pB = new Pawn(1,i,false);
@@ -265,6 +268,14 @@ public class Board {
         f.setVisible(true);
     }
 
+    public void setTurn(boolean turn)
+    {
+       this. turn = turn;
+    }
+    public boolean getTurn()
+    {
+        return turn;
+    }
 
     public BoardTile[][] getBoard() {
         return board;
