@@ -26,7 +26,9 @@ public abstract class Piece {
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
             {
+                board.getBoard()[getPositionX()][getPositionY()].setPiece(null);
                 board.getBoard()[x][y].setPiece(this);//replacings any pieces at new location
+
                 return true;
             }
         }
