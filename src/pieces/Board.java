@@ -273,13 +273,13 @@ public class Board {
        this. turn = turn;
     }
 
-    public void setDeselect()
+    public void setSelectedAll(boolean selected)
     {
         for(BoardTile[] tiles : board)
         {
             for(BoardTile tile : tiles)
             {
-                tile.setSelected(false);
+                tile.setSelected(selected);
             }
         }
     }
