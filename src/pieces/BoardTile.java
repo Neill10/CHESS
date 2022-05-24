@@ -15,6 +15,8 @@ public class BoardTile extends JButton {
     private final int POSITIONY;//(a,b,c,d,e,f,g,h)
     private Piece piece;
     private boolean selected;//changes functionality of possible tiles of a piece.
+    private JLabel jLabel;
+    private Icon icon;
 
 
 
@@ -37,10 +39,21 @@ public class BoardTile extends JButton {
     public void selectedPiece()//should  refer to the board from piece unless i want to have a board variable in this class
     {
         Board b = piece.getAssociatedBoard();
-        if(selected)
-        {
 
+        b.setDeselect();//sets all boardTiles to deselected
+        ArrayList<BoardTile> moves = piece.possibleMoves();
+        for (BoardTile tilePossible : moves) {
+            System.out.print(tilePossible);
+            tilePossible.setSelected(true);
+            tilePossible.setBackground(Color.BLUE);
+            //tilePossible.setIcon(new ImageIcon("src/Assets/blackSquare.png"));//icon not setting???
         }
+
+    }
+
+    public void setSelected(boolean select)
+    {
+        selected = select;
     }
 
     public void setPossibleMoves()
@@ -56,22 +69,34 @@ public class BoardTile extends JButton {
             boolean pieceColor = piece.isWhite();
             if(pieceColor)
             {
-                tile.add(new JLabel(new ImageIcon("src/Assets/"+ pieceName + "White.png")));
+                jLabel = new JLabel(new ImageIcon("src/Assets/"+ pieceName + "White.png"));
+                tile.add(jLabel);
             }
             else
             {
-                tile.add(new JLabel(new ImageIcon("src/Assets/"+ pieceName + "Black.png")));
+                jLabel = new JLabel(new ImageIcon("src/Assets/"+ pieceName + "Black.png"));
+                tile.add(jLabel);
             }
         }
         tile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(isOccupied() );
+                if(isOccupied())
+                {
+                    //tile.remove(jLabel);
+                    selectedPiece();
+                    System.out.println("bruh");
+                }
+                else
+                {
+                    System.out.print("no piece at :");
+                    System.out.println("(" + POSITIONX + "," + POSITIONY +")");
+                }
             }
         });
         if((getPOSITIONX() + getPOSITIONY()) % 2 == 0) {
             try {
-                Image img = ImageIO.read(new File("src/Assets/whiteSquare.png"));
-                tile.setIcon(new ImageIcon(img));
+                icon = new ImageIcon("src/Assets/whiteSquare.png");
+                tile.setIcon(icon);
             } catch (Exception ex) {
                 System.out.println(ex);
                 System.out.println("no whiteSquare file found");
@@ -82,8 +107,8 @@ public class BoardTile extends JButton {
             //black tiles is basically vietnam for white pieces (also the user)
 
             try {
-                Image img = ImageIO.read(new File("src/Assets/greenSquare.png"));
-                tile.setIcon(new ImageIcon(img));
+                icon = new ImageIcon("src/Assets/greenSquare.png");
+                tile.setIcon(icon);
             } catch (Exception ex) {
                 System.out.println(ex);
                 System.out.println("no greenSquare file found");
@@ -128,6 +153,11 @@ public class BoardTile extends JButton {
 
     public Piece getPiece() {
         return piece;
+    }
+
+    public boolean getSelected()
+    {
+        return selected;
     }
 
     public boolean isWhiteSquare() {

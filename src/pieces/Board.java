@@ -272,6 +272,18 @@ public class Board {
     {
        this. turn = turn;
     }
+
+    public void setDeselect()
+    {
+        for(BoardTile[] tiles : board)
+        {
+            for(BoardTile tile : tiles)
+            {
+                tile.setSelected(false);
+            }
+        }
+    }
+
     public boolean getTurn()
     {
         return turn;
