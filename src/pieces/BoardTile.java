@@ -15,6 +15,7 @@ public class BoardTile extends JButton {
     private final int POSITIONY;//(a,b,c,d,e,f,g,h)
     private Piece piece;
     private boolean selected;//changes functionality of possible tiles of a piece.
+    //selected(true) means that tile can be moved to. deselected(false) would be default meaning that it shows possible moves
     private JLabel jLabel;
     private Icon icon;
 
@@ -33,35 +34,85 @@ public class BoardTile extends JButton {
         POSITIONX = x;
         POSITIONY = y;
         whiteSquare = white;
-        selected = false;
+        selected = true;
     }
 
-    public void selectedPiece()//should  refer to the board from piece unless i want to have a board variable in this class
+    public void selectedPiece(JButton tile)
     {
+        if(!selected) {
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Board b = piece.getAssociatedBoard();
+
+                    b.setSelectedAll(false);//sets all boardTiles selected
+                    ArrayList<BoardTile> moves = piece.possibleMoves();
+                    for (BoardTile tilePossible : moves) {
+                        System.out.print(tilePossible);
+                        tilePossible.setSelected(true);
+                    }
+                }
+            });
+        }
+        else
+        {
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {//clicked on after selected = true
+                    piece.move(getPOSITIONX(),getPOSITIONY());
+                    piece.getAssociatedBoard().setSelectedAll(false);
+                }
+            });
+            System.out.println("piece moved");
+        }
+        /*
+
         Board b = piece.getAssociatedBoard();
 
-        b.setDeselect();//sets all boardTiles to deselected
+        //b.setDeselectAll();//sets all boardTiles to deselected
         ArrayList<BoardTile> moves = piece.possibleMoves();
         for (BoardTile tilePossible : moves) {
             System.out.print(tilePossible);
             tilePossible.setSelected(true);
+
+            Icon tileIcon = tilePossible.getIcon();
+            //tilePossible.remove(tileIcon);
             tilePossible.setBackground(Color.BLUE);
+            tilePossible.setIcon(tileIcon);
+
             //tilePossible.setIcon(new ImageIcon("src/Assets/blackSquare.png"));//icon not setting???
         }
 
+         */
+        /*
+        tile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent moving) {
+
+            }
+        });
+         */
     }
 
-    public void setSelected(boolean select)
+    public ArrayList<BoardTile> makeTilePossible()
     {
-        selected = select;
+        ArrayList<BoardTile> moves = piece.possibleMoves();
+        addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Board b = piece.getAssociatedBoard();
+
+                b.setSelectedAll(false);//sets all boardTiles selected
+                for (BoardTile tilePossible : moves) {
+                    System.out.print(tilePossible);
+                    tilePossible.setSelected(true);
+                }
+            }
+        });
+
+        return moves;
     }
 
-    public void setPossibleMoves()
-    {
-        piece.possibleMoves();
-    }
-
-    public JButton createTileButton()
+    public JButton createTileButton()//might be a problem with !selected conditions
     {
         JButton tile = new JButton();
         if(isOccupied()) {
@@ -78,21 +129,35 @@ public class BoardTile extends JButton {
                 tile.add(jLabel);
             }
         }
-        tile.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(isOccupied())
-                {
-                    //tile.remove(jLabel);
-                    selectedPiece();
-                    System.out.println("bruh");
+        if(!selected) {
+            tile.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent clicked) {
+                    if (isOccupied()) {
+                        if (!selected) {//meaning it will display possible moves on gui
+                            //tile.remove(jLabel);
+                            ArrayList<BoardTile> moves = makeTilePossible();
+                            System.out.println("made tiles possible to move to");
+                            for (BoardTile tile : moves) {
+                                addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        int x = tile.getPOSITIONX();
+                                        int y = getPOSITIONY();
+                                        piece.move(x, y);
+                                        System.out.println("piece has moved to (" + x + "," + y + ")");
+                                    }
+                                });
+                            }
+                        } else {
+                            System.out.println("no piece here");
+                        }
+                    } else {
+                        System.out.print("no piece at :");
+                        System.out.println("(" + POSITIONX + "," + POSITIONY + ")");
+                    }
                 }
-                else
-                {
-                    System.out.print("no piece at :");
-                    System.out.println("(" + POSITIONX + "," + POSITIONY +")");
-                }
-            }
-        });
+            });
+        }
         if((getPOSITIONX() + getPOSITIONY()) % 2 == 0) {
             try {
                 icon = new ImageIcon("src/Assets/whiteSquare.png");
@@ -104,8 +169,6 @@ public class BoardTile extends JButton {
         }
         else
         {
-            //black tiles is basically vietnam for white pieces (also the user)
-
             try {
                 icon = new ImageIcon("src/Assets/greenSquare.png");
                 tile.setIcon(icon);
@@ -113,7 +176,6 @@ public class BoardTile extends JButton {
                 System.out.println(ex);
                 System.out.println("no greenSquare file found");
             }
-
 
             /*
             try {
@@ -127,6 +189,7 @@ public class BoardTile extends JButton {
 
 
         }
+
         //tile.setRolloverEnabled(true);
         //setOverLay(tile);
         tile.setVisible(true);
@@ -143,6 +206,16 @@ public class BoardTile extends JButton {
         }
     }
 
+    public void setSelected(boolean select)
+    {
+        selected = select;
+    }
+
+    public void setPossibleMoves()
+    {
+        piece.possibleMoves();
+    }
+
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
@@ -150,6 +223,8 @@ public class BoardTile extends JButton {
     public boolean isOccupied() {
         return piece != null;
     }
+
+
 
     public Piece getPiece() {
         return piece;
