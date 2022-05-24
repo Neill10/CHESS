@@ -10,6 +10,7 @@ public class Main {
         b.assignBoard();//assigns all the pieces inside to b, so they can reference boardTiles.
         b.printBoard();
         //b.printTiles();
+        /*
         System.out.println("rBL:" + b.getBoard()[0][0].getPiece().possibleMoves());//arraylist<boardTile>
         System.out.println("rWL:" + b.getBoard()[7][0].getPiece().possibleMoves());
         System.out.println("bBL:" + b.getBoard()[0][2].getPiece().possibleMoves());
@@ -21,6 +22,8 @@ public class Main {
         System.out.println("P10:" + b.getBoard()[1][0].getPiece().possibleMoves());
         System.out.println(b.getBoard()[1][0].getPiece().move(3,0));//pawn test (THIS WAS DUPLICATING PIECES!!! resolved by setting piece to null)
         System.out.println(b.getBoard()[1][0].isOccupied());
+        
+         */
         b.createFrame();
     }
 }
