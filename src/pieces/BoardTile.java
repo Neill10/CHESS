@@ -18,6 +18,7 @@ public class BoardTile extends JButton {
     //selected(true) means that tile can be moved to. deselected(false) would be default meaning that it shows possible moves
     private JLabel jLabel;
     private Icon icon;
+    private Board associatedBoard;
 
 
 
@@ -95,24 +96,21 @@ public class BoardTile extends JButton {
 
     public ArrayList<BoardTile> makeTilePossible()
     {
+        System.out.println(associatedBoard);
         ArrayList<BoardTile> moves = piece.possibleMoves();
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Board b = piece.getAssociatedBoard();
+        System.out.println(moves);
 
-                b.setSelectedAll(false);//sets all boardTiles selected
-                for (BoardTile tilePossible : moves) {
-                    System.out.print(tilePossible);
-                    tilePossible.setSelected(true);
-                }
-            }
-        });
+        associatedBoard.setSelectedAll(false);//sets all boardTiles selected default is false
+        for (BoardTile tilePossible : moves) {
+            tilePossible.setSelected(true);
+            System.out.println(tilePossible + " " +tilePossible.getSelected());
+        }
+
 
         return moves;
     }
 
-    public JButton createTileButton()//might be a problem with !selected conditions
+    public JButton createTileButton()
     {
         JButton tile = new JButton();
         if(isOccupied()) {
@@ -129,35 +127,39 @@ public class BoardTile extends JButton {
                 tile.add(jLabel);
             }
         }
-        if(!selected) {
-            tile.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent clicked) {
-                    if (isOccupied()) {
-                        if (!selected) {//meaning it will display possible moves on gui
-                            //tile.remove(jLabel);
-                            ArrayList<BoardTile> moves = makeTilePossible();
-                            System.out.println("made tiles possible to move to");
-                            for (BoardTile tile : moves) {
-                                addActionListener(new ActionListener() {
-                                    @Override
-                                    public void actionPerformed(ActionEvent e) {
-                                        int x = tile.getPOSITIONX();
-                                        int y = getPOSITIONY();
-                                        piece.move(x, y);
-                                        System.out.println("piece has moved to (" + x + "," + y + ")");
-                                    }
-                                });
+        tile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent clicked) {
+                if (!selected) {
+                    if(isOccupied()) {
+                        associatedBoard.setSelectedPiece(getPiece());
+                        System.out.print(associatedBoard.getSelectedPiece());
+
+                        System.out.println(piece.getPositionX() +","+ piece.getPositionY());
+                        ArrayList<BoardTile> moves = makeTilePossible();
+                        System.out.println("  made tiles possible to move to");
+
+                        for(BoardTile[] tiles : associatedBoard.getBoard())
+                        {
+                            for(BoardTile tile : tiles)
+                            {
+                                System.out.print(getSelected()+" ");
                             }
-                        } else {
-                            System.out.println("no piece here");
+                            System.out.println();
                         }
-                    } else {
+                    }
+                    else
+                    {
                         System.out.print("no piece at :");
                         System.out.println("(" + POSITIONX + "," + POSITIONY + ")");
                     }
+                } else {//selected is true
+                    Piece selectedPiece = associatedBoard.getSelectedPiece();
+                    selectedPiece.move(getPOSITIONX(),getPOSITIONY());
+                    System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
+                    associatedBoard.setSelectedAll(false);
                 }
-            });
-        }
+            }
+        });
         if((getPOSITIONX() + getPOSITIONY()) % 2 == 0) {
             try {
                 icon = new ImageIcon("src/Assets/whiteSquare.png");
@@ -176,18 +178,6 @@ public class BoardTile extends JButton {
                 System.out.println(ex);
                 System.out.println("no greenSquare file found");
             }
-
-            /*
-            try {
-                Image img = ImageIO.read(new File("src/Assets/blackSquare.png"));
-                tile.setIcon(new ImageIcon(img));
-            } catch (Exception ex) {
-                System.out.println(ex);
-                System.out.println("no blackSquare file found");
-            }
-             */
-
-
         }
 
         //tile.setRolloverEnabled(true);
@@ -197,6 +187,18 @@ public class BoardTile extends JButton {
     }
 
 
+    public JLabel getjLabel() {
+        return jLabel;
+    }
+
+    public void setjLabel(JLabel jLabel) {
+        this.jLabel = jLabel;
+    }
+
+    public void removeLabel()
+    {
+        remove(jLabel);
+    }
     public void setOverLay(JButton b)
     {
         if(isOccupied())
@@ -233,6 +235,10 @@ public class BoardTile extends JButton {
     public boolean getSelected()
     {
         return selected;
+    }
+
+    public void setAssociatedBoard(Board associatedBoard) {
+        this.associatedBoard = associatedBoard;
     }
 
     public boolean isWhiteSquare() {

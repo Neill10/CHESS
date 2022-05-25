@@ -11,6 +11,7 @@ public class Board {
     private BoardTile[][] board;
     public static final int LEN = 8;
     private boolean turn;//true == white's move, false == black's move
+    private Piece selectedPiece;
 
     public Board()
     {
@@ -62,10 +63,12 @@ public class Board {
                 if((i + y) % 2 == 0)
                 {
                     board[i][y] = new BoardTile(i,y,true);
+                    board[i][y].setAssociatedBoard(this);
                 }
                 else
                 {
                     board[i][y] = new BoardTile(i,y,false);
+                    board[i][y].setAssociatedBoard(this);
                 }
 
             }
@@ -219,21 +222,6 @@ public class Board {
     }
     public void createFrame(){
         JFrame f = new JFrame("Board");
-        /*
-        final JTextField tf= new JTextField();
-        tf.setBounds(50,50, 150,20);
-
-        JButton b = new JButton("Click Here");
-        b.setBounds(50,100,95,30);
-
-        b.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                tf.setText("Welcome to Javatpoint.");
-            }
-        });
-        f.add(b);
-        f.add(tf);
-         */
         int x = 10;
         int y = 10;
         for(int i = 0; i < LEN ; i++) {
@@ -247,21 +235,6 @@ public class Board {
             x += 80;
             y = 10;
         }
-
-
-        /*
-        JButton button = board[0][0].createTileButton();
-        button.setBounds(50,100,95,30);
-        f.add(button);
-
-        try {
-            Image img = ImageIO.read(new File("src/Assets/blackSquare.png"));
-            button.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-
-         */
         f.setSize(700,700);
         f.setResizable(false);
         f.setLayout(null);
@@ -282,6 +255,14 @@ public class Board {
                 tile.setSelected(selected);
             }
         }
+    }
+
+    public void setSelectedPiece(Piece selectedPiece) {
+        this.selectedPiece = selectedPiece;
+    }
+
+    public Piece getSelectedPiece() {
+        return selectedPiece;
     }
 
     public boolean getTurn()

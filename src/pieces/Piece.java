@@ -21,6 +21,7 @@ public abstract class Piece {
 
     //public abstract? boolean move(int x, int y);//returns if piece successfully moved
     public boolean move(int x, int y) {
+        System.out.println(board);
         possibleMoves = possibleMoves();
         for(BoardTile tile : getPossibleMoves())
         {
@@ -34,6 +35,24 @@ public abstract class Piece {
         }
         return false;
     }
+    /*
+     public boolean move(int x, int y) {
+        possibleMoves = possibleMoves();
+        for(BoardTile tile : getPossibleMoves())
+        {
+            if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
+            {
+                board.getBoard()[getPositionX()][getPositionY()].setPiece(null);
+                JLabel replacingLabel = board.getBoard()[getPositionX()][getPositionY()].getjLabel();
+                board.getBoard()[getPositionX()][getPositionY()].removeLabel();
+                board.getBoard()[x][y].setjLabel(replacingLabel);
+                board.getBoard()[x][y].setPiece(this);
+                return true;
+            }
+        }
+        return false;
+    }
+     */
     public abstract ArrayList<BoardTile> possibleMoves();
 
     public void setBoard(Board board) {
