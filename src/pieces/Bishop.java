@@ -11,7 +11,7 @@ public class Bishop extends Piece{
 
     public ArrayList<BoardTile> possibleMoves() { //is not assigned to piece instance variable possible moves
         ArrayList<BoardTile> bishopPossibleMoves = new ArrayList<BoardTile>();
-        int row = this.getPositionX();
+        int row = this.getPositionX();//row = 5 , col = 2
         int col = this.getPositionY();
 
         int diffX = col - 1;
@@ -24,12 +24,8 @@ public class Bishop extends Piece{
                 if (isWhite() != currentTile.getPiece().isWhite())
                 {
                     bishopPossibleMoves.add(currentTile);
-                    break;
                 }
-                else
-                {
-                    break;
-                }
+                break;
             }
             else
             {
@@ -39,7 +35,7 @@ public class Bishop extends Piece{
             }
         }
 
-        //upwards right movement (using row) //(2,5)
+        //upwards right movement (using row) //(5,2)
         diffX = col + 1;
         diffY = row - 1;
         while(inBounds(diffX) && inBounds(diffY))
@@ -65,8 +61,8 @@ public class Bishop extends Piece{
         }
 
         //downwards left movement
-        diffX = row + 1;
-        diffY = col - 1;
+        diffY = row + 1;
+        diffX = col - 1;
         while(inBounds(diffX) && inBounds(diffY))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffY][diffX];
@@ -90,8 +86,8 @@ public class Bishop extends Piece{
         }
 
         //downwards right movement
-        diffX = row + 1 ;
-        diffY = col + 1;
+        diffY = row + 1 ;
+        diffX = col + 1;
         while(inBounds(diffX) && inBounds(diffY))
         {
             BoardTile currentTile = getAssociatedBoard().getBoard()[diffY][diffX];

@@ -96,53 +96,69 @@ public class BoardTile extends JButton {
 
     public ArrayList<BoardTile> makeTilePossible()
     {
-        System.out.println(associatedBoard);
+        System.out.println("possible " + piece);
+        System.out.println(piece.getPositionX()+","+ piece.getPositionY());
         ArrayList<BoardTile> moves = piece.possibleMoves();
         System.out.println(moves);
 
         associatedBoard.setSelectedAll(false);//sets all boardTiles selected default is false
         for (BoardTile tilePossible : moves) {
             tilePossible.setSelected(true);
-            System.out.println(tilePossible + " " +tilePossible.getSelected());
+            System.out.println(tilePossible + " " + tilePossible.getSelected());
         }
         return moves;
     }
 
     public JButton createTileButton()
     {
-        JButton tile = new JButton();
+        //sets up inital look
         if(isOccupied()) {
             String pieceName = piece.getPieceName();
             boolean pieceColor = piece.isWhite();
             if(pieceColor)
             {
                 jLabel = new JLabel(new ImageIcon("src/Assets/"+ pieceName + "White.png"));
-                tile.add(jLabel);
+                add(jLabel);
             }
             else
             {
                 jLabel = new JLabel(new ImageIcon("src/Assets/"+ pieceName + "Black.png"));
-                tile.add(jLabel);
+                add(jLabel);
             }
         }
-        tile.addActionListener(new ActionListener() {
+        //updates board based on user clicks
+        addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent clicked) {
-                if (!selected) {
+                if (!selected) {//shows possible move
                     if(isOccupied()) {
-                        associatedBoard.setSelectedPiece(getPiece());
-                        System.out.print(associatedBoard.getSelectedPiece());
+                        if(associatedBoard.getTurn()) {
+                            associatedBoard.setSelectedPiece(getPiece());
+                            associatedBoard.setSelectedTile(BoardTile.this);
+                            System.out.print(associatedBoard.getSelectedPiece());
 
-                        System.out.println(piece.getPositionX() +","+ piece.getPositionY());
-                        ArrayList<BoardTile> moves = makeTilePossible();
-                        System.out.println("  made tiles possible to move to");
+                            System.out.println(piece.getPositionX() + "," + piece.getPositionY());
+                            ArrayList<BoardTile> moves = makeTilePossible();
+                            System.out.println("  made tiles possible to move to");
 
-                        for(BoardTile[] tiles : associatedBoard.getBoard())
-                        {
-                            for(BoardTile tile : tiles)
-                            {
-                                System.out.print(tile.getSelected()+" ");
+                            for (BoardTile[] tiles : associatedBoard.getBoard()) {
+                                for (BoardTile tile : tiles) {
+                                    if(tile.isOccupied()) {
+                                        if (tile.getPiece().equals(piece)) {
+                                            System.out.print("*****");
+                                        }
+                                        else
+                                        {
+                                            System.out.print(tile.getSelected() + " ");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        System.out.print(tile.getSelected() + " ");
+                                    }
+
+                                }
+                                System.out.println();
                             }
-                            System.out.println();
                         }
                     }
                     else
@@ -150,20 +166,32 @@ public class BoardTile extends JButton {
                         System.out.print("no piece at :");
                         System.out.println("(" + POSITIONX + "," + POSITIONY + ")");
                     }
-                } else {//selected is true
+                } else {//selected is true you can move
                     Piece selectedPiece = associatedBoard.getSelectedPiece();
+                    System.out.println(selectedPiece);
+                    BoardTile selectedTile = associatedBoard.getSelectedTile();
+
                     selectedPiece.move(getPOSITIONX(),getPOSITIONY());
                     System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
                     associatedBoard.setSelectedAll(false);
+                    jLabel = selectedTile.getjLabel();
+                    add(jLabel);
+                    selectedTile.removeLabel();
+
+                    Board.FRAME.invalidate();
+                    Board.FRAME.validate();
+                    Board.FRAME.repaint();
+                    /*
                     Piece rook = associatedBoard.getBoard()[0][0].getPiece();
                     rook.move(6,0);
+                     */
                 }
             }
         });
         if((getPOSITIONX() + getPOSITIONY()) % 2 == 0) {
             try {
                 icon = new ImageIcon("src/Assets/whiteSquare.png");
-                tile.setIcon(icon);
+                setIcon(icon);
             } catch (Exception ex) {
                 System.out.println(ex);
                 System.out.println("no whiteSquare file found");
@@ -173,7 +201,7 @@ public class BoardTile extends JButton {
         {
             try {
                 icon = new ImageIcon("src/Assets/greenSquare.png");
-                tile.setIcon(icon);
+                setIcon(icon);
             } catch (Exception ex) {
                 System.out.println(ex);
                 System.out.println("no greenSquare file found");
@@ -182,8 +210,8 @@ public class BoardTile extends JButton {
 
         //tile.setRolloverEnabled(true);
         //setOverLay(tile);
-        tile.setVisible(true);
-        return tile;
+        setVisible(true);
+        return this;
     }
 
 

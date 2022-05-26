@@ -30,6 +30,7 @@ public class Pawn extends Piece {
         if(isWhite())
         {
             //moving forwards
+
             BoardTile currentTile = getAssociatedBoard().getBoard()[row - 1][col];
             if(!(currentTile.isOccupied())) {
                 pawnPossibleMoves.add(currentTile);

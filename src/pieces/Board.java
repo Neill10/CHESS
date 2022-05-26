@@ -12,6 +12,8 @@ public class Board {
     public static final int LEN = 8;
     private boolean turn;//true == white's move, false == black's move
     private Piece selectedPiece;
+    private BoardTile selectedTile;
+    public static final JFrame FRAME = new JFrame();
 
     public Board()
     {
@@ -221,7 +223,6 @@ public class Board {
         }
     }
     public void createFrame(){
-        JFrame f = new JFrame("Board");
         int x = 10;
         int y = 10;
         for(int i = 0; i < LEN ; i++) {
@@ -229,16 +230,16 @@ public class Board {
             for(int a = 0 ; a < LEN;a++) {
                 JButton button = board[a][i].createTileButton();
                 button.setBounds(x,y,80,80);
-                f.add(button);
+                FRAME.add(button);
                 y += 80;
             }
             x += 80;
             y = 10;
         }
-        f.setSize(700,700);
-        f.setResizable(false);
-        f.setLayout(null);
-        f.setVisible(true);
+        FRAME.setSize(700,700);
+        FRAME.setResizable(false);
+        FRAME.setLayout(null);
+        FRAME.setVisible(true);
     }
 
     public void setTurn(boolean turn)
@@ -263,6 +264,14 @@ public class Board {
 
     public Piece getSelectedPiece() {
         return selectedPiece;
+    }
+
+    public void setSelectedTile(BoardTile selectedTile) {
+        this.selectedTile = selectedTile;
+    }
+
+    public BoardTile getSelectedTile() {
+        return selectedTile;
     }
 
     public boolean getTurn()

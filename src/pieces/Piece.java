@@ -21,14 +21,18 @@ public abstract class Piece {
 
     //public abstract? boolean move(int x, int y);//returns if piece successfully moved
     public boolean move(int x, int y) {
-        System.out.println(board);
         possibleMoves = possibleMoves();
         for(BoardTile tile : getPossibleMoves())
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
             {
+                //BoardTile[][] b = board.getBoard();
                 board.getBoard()[getPositionX()][getPositionY()].setPiece(null);
+
                 board.getBoard()[x][y].setPiece(this);//replacings any pieces at new location
+                System.out.println(board.getBoard()[x][y].getPiece().getClass());
+                board.getBoard()[x][y].getPiece().setPositionX(x);
+                board.getBoard()[x][y].getPiece().setPositionY(y);
                 board.setSelectedAll(false);
                 return true;
             }
@@ -73,6 +77,13 @@ public abstract class Piece {
         return positionY;
     }
 
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
+    }
 
     public boolean inBounds(int num)
     {

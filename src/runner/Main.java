@@ -25,7 +25,7 @@ public class Main {
         
          */
         //System.out.println(b.getBoard()[1][0].getPiece().move(3,0));//pawn test (THIS WAS DUPLICATING PIECES!!! resolved by setting piece to null)
-        b.getBoard()[1][0].setPiece(null);//removes pawn
+        //b.getBoard()[1][0].setPiece(null);//removes pawn
         /*
         Piece rook = b.getBoard()[0][0].getPiece();
         rook.move(6,0);

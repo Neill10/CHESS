@@ -58,9 +58,12 @@ public class Queen extends Piece {
         return queenPossibleMoves;
     }
 
+    /*
     @Override
     public String toString()
     {
         return super.toString() + "Q";
     }
+
+     */
 }
