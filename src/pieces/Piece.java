@@ -29,7 +29,7 @@ public abstract class Piece {
             {
                 board.getBoard()[getPositionX()][getPositionY()].setPiece(null);
                 board.getBoard()[x][y].setPiece(this);//replacings any pieces at new location
-
+                board.setSelectedAll(false);
                 return true;
             }
         }

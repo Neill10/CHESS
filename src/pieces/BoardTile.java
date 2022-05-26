@@ -105,8 +105,6 @@ public class BoardTile extends JButton {
             tilePossible.setSelected(true);
             System.out.println(tilePossible + " " +tilePossible.getSelected());
         }
-
-
         return moves;
     }
 
@@ -142,7 +140,7 @@ public class BoardTile extends JButton {
                         {
                             for(BoardTile tile : tiles)
                             {
-                                System.out.print(getSelected()+" ");
+                                System.out.print(tile.getSelected()+" ");
                             }
                             System.out.println();
                         }
@@ -157,6 +155,8 @@ public class BoardTile extends JButton {
                     selectedPiece.move(getPOSITIONX(),getPOSITIONY());
                     System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
                     associatedBoard.setSelectedAll(false);
+                    Piece rook = associatedBoard.getBoard()[0][0].getPiece();
+                    rook.move(6,0);
                 }
             }
         });
