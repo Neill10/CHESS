@@ -10,21 +10,36 @@ public class Rook extends Piece{
         firstMove = true;
     }
 
-    /*
     @Override
     public boolean move(int x, int y) {
-
+        setPossibleMoves(possibleMoves());
         for(BoardTile tile : getPossibleMoves())
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
             {
+                Board board = getAssociatedBoard();
+                BoardTile[][] b = board.getBoard();
+                b[getPositionX()][getPositionY()].setPiece(null);
+
+                b[x][y].setPiece(this);
+                System.out.println(b[x][y].getPiece().getClass());
+                b[x][y].getPiece().setPositionX(x);
+                b[x][y].getPiece().setPositionY(y);
+                board.setSelectedAll(false);
+                setFirstMove(false);
                 return true;
             }
         }
         return false;
     }
 
-     */
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
+    }
+
+    public boolean isFirstMove() {
+        return firstMove;
+    }
 
     @Override
     public ArrayList<BoardTile> possibleMoves() {

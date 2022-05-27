@@ -131,7 +131,8 @@ public class BoardTile extends JButton {
             public void actionPerformed(ActionEvent clicked) {
                 if (!selected) {//shows possible move
                     if(isOccupied()) {
-                        if(associatedBoard.getTurn()) {
+                        if(associatedBoard.isWhiteTurn() == piece.isWhite())
+                        {
                             associatedBoard.setSelectedPiece(getPiece());
                             associatedBoard.setSelectedTile(BoardTile.this);
                             System.out.print(associatedBoard.getSelectedPiece());
@@ -170,14 +171,17 @@ public class BoardTile extends JButton {
                     Piece selectedPiece = associatedBoard.getSelectedPiece();
                     System.out.println(selectedPiece);
                     BoardTile selectedTile = associatedBoard.getSelectedTile();
-
+                    //deletes one icon
+                    removeJLabel();
                     selectedPiece.move(getPOSITIONX(),getPOSITIONY());
                     System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
                     associatedBoard.setSelectedAll(false);
+                    //adds the moved piece icon
                     jLabel = selectedTile.getjLabel();
                     add(jLabel);
-                    selectedTile.removeLabel();
-
+                    selectedTile.removeJLabel();
+                    //flips turn
+                    associatedBoard.setWhiteTurn(!associatedBoard.isWhiteTurn());
                     Board.FRAME.invalidate();
                     Board.FRAME.validate();
                     Board.FRAME.repaint();
@@ -223,9 +227,11 @@ public class BoardTile extends JButton {
         this.jLabel = jLabel;
     }
 
-    public void removeLabel()
+    public void removeJLabel()
     {
-        remove(jLabel);
+        if(isOccupied()) {
+            remove(jLabel);
+        }
     }
     public void setOverLay(JButton b)
     {

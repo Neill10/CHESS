@@ -26,37 +26,41 @@ public abstract class Piece {
         {
             if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
             {
-                //BoardTile[][] b = board.getBoard();
-                board.getBoard()[getPositionX()][getPositionY()].setPiece(null);
+                BoardTile[][] b = board.getBoard();
+                b[getPositionX()][getPositionY()].setPiece(null);
 
-                board.getBoard()[x][y].setPiece(this);//replacings any pieces at new location
-                System.out.println(board.getBoard()[x][y].getPiece().getClass());
-                board.getBoard()[x][y].getPiece().setPositionX(x);
-                board.getBoard()[x][y].getPiece().setPositionY(y);
+                b[x][y].setPiece(this);//replacings any pieces at new location
+                System.out.println(b[x][y].getPiece().getClass());
+                b[x][y].getPiece().setPositionX(x);
+                b[x][y].getPiece().setPositionY(y);
                 board.setSelectedAll(false);
                 return true;
             }
         }
         return false;
     }
-    /*
-     public boolean move(int x, int y) {
-        possibleMoves = possibleMoves();
-        for(BoardTile tile : getPossibleMoves())
-        {
-            if(tile.getPOSITIONX() == x && tile.getPOSITIONY() == y)
-            {
-                board.getBoard()[getPositionX()][getPositionY()].setPiece(null);
-                JLabel replacingLabel = board.getBoard()[getPositionX()][getPositionY()].getjLabel();
-                board.getBoard()[getPositionX()][getPositionY()].removeLabel();
-                board.getBoard()[x][y].setjLabel(replacingLabel);
-                board.getBoard()[x][y].setPiece(this);
-                return true;
-            }
+    public ArrayList<Piece> getTeam()
+    {
+        if(isWhite()) {
+            return getAssociatedBoard().getWhiteP();
         }
-        return false;
+        else
+        {
+            return getAssociatedBoard().getBlackP();
+        }
+
     }
-     */
+
+    public ArrayList<Piece> getEnemyTeam()
+    {
+        if(isWhite()) {
+            return getAssociatedBoard().getBlackP();
+        }
+        else
+        {
+            return getAssociatedBoard().getWhiteP();
+        }
+    }
     public abstract ArrayList<BoardTile> possibleMoves();
 
     public void setBoard(Board board) {

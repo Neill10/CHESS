@@ -12,13 +12,16 @@ public class Pawn extends Piece {
         firstMove = true;
     }
 
-    /*
     @Override
-    public boolean move(int x, int y)//returns true if successfully moved.
-    {
+    public boolean move(int x, int y) {
+        super.move(x,y);
+        setFirstMove(false);
         return true;
     }
-     */
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
+    }
 
     @Override
     public ArrayList<BoardTile> possibleMoves() {
@@ -30,20 +33,26 @@ public class Pawn extends Piece {
         if(isWhite())
         {
             //moving forwards
-
-            BoardTile currentTile = getAssociatedBoard().getBoard()[row - 1][col];
-            if(!(currentTile.isOccupied())) {
-                pawnPossibleMoves.add(currentTile);
-                if(inBounds(row - 2)) {
-                    currentTile = getAssociatedBoard().getBoard()[row - 2][col];
-                }
-                if (firstMove && !currentTile.isOccupied()) {
+            if(inBounds(row-1))
+            {
+                BoardTile currentTile = getAssociatedBoard().getBoard()[row - 1][col];
+                if (!(currentTile.isOccupied()))
+                {
                     pawnPossibleMoves.add(currentTile);
+                    if (inBounds(row - 2))
+                    {
+                        currentTile = getAssociatedBoard().getBoard()[row - 2][col];
+                    }
+                    if (firstMove && !currentTile.isOccupied())
+                    {
+                        pawnPossibleMoves.add(currentTile);
+                    }
                 }
             }
             //capturing pieces
             //left capture (our view)
-            if(inBounds(row - 1) & inBounds(col - 1)) {
+            if(inBounds(row - 1) & inBounds(col - 1))
+            {
                 BoardTile leftTile = getAssociatedBoard().getBoard()[row - 1][col - 1];
                 if(leftTile.isOccupied() && leftTile.getPiece().isWhite() != isWhite())
                 {
@@ -51,37 +60,47 @@ public class Pawn extends Piece {
                 }
             }
             //right capture
-            if(inBounds(row - 1) && inBounds(col + 1)) {
+            if(inBounds(row - 1) && inBounds(col + 1))
+            {
                 BoardTile rightTile = getAssociatedBoard().getBoard()[row - 1][col + 1];
-                if (rightTile.isOccupied() && rightTile.getPiece().isWhite() != isWhite()) {
+                if (rightTile.isOccupied() && rightTile.getPiece().isWhite() != isWhite())
+                {
                     pawnPossibleMoves.add(rightTile);
                 }
             }
         }
         else//black pawn moves downwards
         {
-            BoardTile currentTile = getAssociatedBoard().getBoard()[row + 1][col];
-            if(!(currentTile.isOccupied())) {
-                pawnPossibleMoves.add(currentTile);
-                if(inBounds(row + 2))
+            if (inBounds(row + 1))
+            {
+                BoardTile currentTile = getAssociatedBoard().getBoard()[row + 1][col];
+                if (!(currentTile.isOccupied()))
                 {
-                    currentTile = getAssociatedBoard().getBoard()[row + 2][col];
-                }
-                if (firstMove && !currentTile.isOccupied()) {
                     pawnPossibleMoves.add(currentTile);
+                    if (inBounds(row + 2))
+                    {
+                        currentTile = getAssociatedBoard().getBoard()[row + 2][col];
+                    }
+                    if (firstMove && !currentTile.isOccupied())
+                    {
+                        pawnPossibleMoves.add(currentTile);
+                    }
                 }
             }
             //capturing pieces
-            if(inBounds(row + 1) & inBounds(col - 1)) {
+            if(inBounds(row + 1) & inBounds(col - 1))
+            {
                 BoardTile leftTile = getAssociatedBoard().getBoard()[row + 1][col - 1];
                 if(leftTile.isOccupied() && leftTile.getPiece().isWhite() != isWhite())
                 {
                     pawnPossibleMoves.add(leftTile);
                 }
             }
-            if(inBounds(row + 1) && inBounds(col + 1)) {
+            if(inBounds(row + 1) && inBounds(col + 1))
+            {
                 BoardTile rightTile = getAssociatedBoard().getBoard()[row + 1][col + 1];
-                if (rightTile.isOccupied() && rightTile.getPiece().isWhite() != isWhite()) {
+                if (rightTile.isOccupied() && rightTile.getPiece().isWhite() != isWhite())
+                {
                     pawnPossibleMoves.add(rightTile);
                 }
             }

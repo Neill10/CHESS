@@ -1,19 +1,24 @@
 package pieces;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.time.Period;
+import java.util.ArrayList;
 
 public class Board {
     private BoardTile[][] board;
     public static final int LEN = 8;
-    private boolean turn;//true == white's move, false == black's move
+    private boolean whiteTurn;
+    //true == white's move, false == black's move
     private Piece selectedPiece;
     private BoardTile selectedTile;
     public static final JFrame FRAME = new JFrame();
+    private ArrayList<Piece> whiteP;
+    private ArrayList<Piece> blackP;
+
 
     public Board()
     {
@@ -34,7 +39,9 @@ public class Board {
 
             }
         }
-        turn = true;
+        whiteTurn = true;
+        blackP = new ArrayList<Piece>();
+        whiteP = new ArrayList<Piece>();
     }
 
     public void assignBoard()
@@ -77,30 +84,12 @@ public class Board {
         }
 
         //Queens
-        /*
-        Queen qW = new Queen(1,4,true);
-        Queen qB = new Queen(8,4,false);
-
-        board [0][3] = new BoardTile(qW,1,4,true);
-        board [7][3] = new BoardTile(qB,8,4,false);
-         */
         Queen qB = new Queen(0,3,false);
         Queen qW = new Queen(7,3,true);
-        /////////////////////////////////////////////////////////point of change
         board [0][3].setPiece(qB);
         board [7][3].setPiece(qW);
 
         // Rooks
-        /*
-        Rook rWL = new Rook(1,1,true);
-        Rook rWR = new Rook(1,8,true);
-        Rook rBL = new Rook(8,1,true);
-        Rook rBR = new Rook(8,8,true);
-        board [0][0] = new BoardTile(rWL,1,1,true);
-        board [0][7] = new BoardTile(rWR,1,8,true);
-        board [7][0] = new BoardTile(rBL,8,1,true);
-        board [7][7] = new BoardTile(rBR,8,8,true);
-         */
         Rook rBL = new Rook(0,0,false);
         Rook rBR = new Rook(0,7,false);
         Rook rWL = new Rook(7,0,true);
@@ -110,15 +99,7 @@ public class Board {
         board [7][0].setPiece(rWL);
         board [7][7].setPiece(rWR);
 
-
         // Knights
-        /*
-        board [0][1] = "N";
-        board [0][6] = "N";
-        board [7][1] = "N";
-        board [7][6] = "N";
-
-         */
         Knight nBL = new Knight(0,1,false);
         Knight nBR = new Knight(0,6,false);
         Knight nWL = new Knight(7,1,true);
@@ -127,42 +108,24 @@ public class Board {
         board [0][6].setPiece(nBR);
         board [7][1].setPiece(nWL);
         board [7][6].setPiece(nWR);
-        /*
 
         //Bishops
-        board [0][2] = "B";
-        board [0][5] = "B";
-        board [7][2] = "B";
-        board [7][5] = "B";
-        */
-
         Bishop bBL = new Bishop(0,2,false);
         Bishop bBR = new Bishop(0,5,false);
         Bishop bWL = new Bishop(7,2,true);
         Bishop bWR = new Bishop(7,5,true);
-
         board [0][2].setPiece(bBL);
         board [0][5].setPiece(bBR);
         board [7][2].setPiece(bWL);
         board [7][5].setPiece(bWR);
 
-        /*
         //Kings
-        board [0][4] = "K";
-        board [7][4] = "K";
-        */
         King kB = new King(0,4,false);
         King kW = new King(7,4,true);
         board [0][4].setPiece(kB);
         board [7][4].setPiece(kW);
-        /*
+
         //Pawns
-        for (int i = 0; i < 8; i++) {
-            board[1][i] = "P";
-            board[6][i] = "P";
-        }
-         */
-        //pawns
         for(int i = 0; i < 8; i++)
         {
             Pawn pB = new Pawn(1,i,false);
@@ -170,6 +133,33 @@ public class Board {
             Pawn pW = new Pawn(6,i,true);
             board[6][i].setPiece(pW);
         }
+
+        blackP.add(nBL);
+        blackP.add(nBR);
+        blackP.add(rBL);
+        blackP.add(rBR);
+        blackP.add(kB);
+        blackP.add(qB);
+        blackP.add(bBL);
+        blackP.add(bBR);
+        for(int i = 0; i < board[1].length;i++)
+        {
+            blackP.add(board[1][i].getPiece());
+        }
+
+        whiteP.add(nWL);
+        whiteP.add(nWR);
+        whiteP.add(rWL);
+        whiteP.add(rWR);
+        whiteP.add(kW);
+        whiteP.add(qW);
+        whiteP.add(bWL);
+        whiteP.add(bWR);
+        for(int i = 0; i < board[6].length;i++)
+        {
+            whiteP.add(board[6][i].getPiece());
+        }
+
 
     }
     public void printTiles()
@@ -242,9 +232,9 @@ public class Board {
         FRAME.setVisible(true);
     }
 
-    public void setTurn(boolean turn)
+    public void setWhiteTurn(boolean whiteTurn)
     {
-       this. turn = turn;
+       this. whiteTurn = whiteTurn;
     }
 
     public void setSelectedAll(boolean selected)
@@ -256,6 +246,14 @@ public class Board {
                 tile.setSelected(selected);
             }
         }
+    }
+
+    public ArrayList<Piece> getBlackP() {
+        return blackP;
+    }
+
+    public ArrayList<Piece> getWhiteP() {
+        return whiteP;
     }
 
     public void setSelectedPiece(Piece selectedPiece) {
@@ -274,9 +272,9 @@ public class Board {
         return selectedTile;
     }
 
-    public boolean getTurn()
+    public boolean isWhiteTurn()
     {
-        return turn;
+        return whiteTurn;
     }
 
     public BoardTile[][] getBoard() {
