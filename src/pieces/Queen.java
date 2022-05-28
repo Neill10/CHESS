@@ -10,14 +10,6 @@ public class Queen extends Piece {
         super("queen",x,y,white);
     }
 
-    /*
-    @Override
-    public boolean move(int x, int y)//returns true if successfully moved.
-    {
-        return true;
-    }
-     */
-
     @Override
     public ArrayList<BoardTile> possibleMoves() {
         //creates a temp bishop and rook piece at the location of queen and just adds their possible moves to the queenpossible moves

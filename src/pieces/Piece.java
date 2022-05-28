@@ -30,7 +30,6 @@ public abstract class Piece {
                 b[getPositionX()][getPositionY()].setPiece(null);
 
                 b[x][y].setPiece(this);//replacings any pieces at new location
-                System.out.println(b[x][y].getPiece().getClass());
                 b[x][y].getPiece().setPositionX(x);
                 b[x][y].getPiece().setPositionY(y);
                 board.setSelectedAll(false);

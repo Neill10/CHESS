@@ -96,10 +96,7 @@ public class BoardTile extends JButton {
 
     public ArrayList<BoardTile> makeTilePossible()
     {
-        System.out.println("possible " + piece);
-        System.out.println(piece.getPositionX()+","+ piece.getPositionY());
         ArrayList<BoardTile> moves = piece.possibleMoves();
-        System.out.println(moves);
 
         associatedBoard.setSelectedAll(false);//sets all boardTiles selected default is false
         for (BoardTile tilePossible : moves) {
@@ -137,9 +134,8 @@ public class BoardTile extends JButton {
                             associatedBoard.setSelectedTile(BoardTile.this);
                             System.out.print(associatedBoard.getSelectedPiece());
 
-                            System.out.println(piece.getPositionX() + "," + piece.getPositionY());
+                            //System.out.println(piece.getPositionX() + "," + piece.getPositionY());
                             ArrayList<BoardTile> moves = makeTilePossible();
-                            System.out.println("  made tiles possible to move to");
 
                             for (BoardTile[] tiles : associatedBoard.getBoard()) {
                                 for (BoardTile tile : tiles) {

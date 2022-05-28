@@ -80,8 +80,8 @@ public class Bishop extends Piece{
             else
             {
                 bishopPossibleMoves.add(currentTile);
-                diffX++;
-                diffY--;
+                diffX--;
+                diffY++;
             }
         }
 
