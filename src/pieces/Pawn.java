@@ -16,50 +16,13 @@ public class Pawn extends Piece {
 
     @Override
     public void move(int x, int y) {
-        super.move(x,y);
+        super.move(x, y);
         setFirstMove(false);
-        /*
-        if(firstMove)
+        if (x == 0 || x == 7)
         {
-            super.move(x,y);
-            setFirstMove(false);
+            setPromoted(true);
+            System.out.println("promoted");
         }
-        else if(isWhite())
-        {
-            if(x == 0)
-            {
-                Board board = getAssociatedBoard();
-                Queen promoteWhite = new Queen(x,y,true);
-                promoteWhite.setBoard(board);
-                board.getBoard()[getPositionX()][getPositionY()].setPiece(null);//removes pawn
-                board.getBoard()[x][y].setPiece(promoteWhite);
-                JLabel queenLabel = new JLabel("src/Assets/queenWhite");
-                board.getBoard()[x][y].removeJLabel();
-                board.getBoard()[x][y].setjLabel(queenLabel);
-                setPromoted(true);
-                System.out.println("promoted");
-            }
-            else
-            {
-                super.move(x,y);
-            }
-        }
-        else {
-            if (x == 7) {
-                Queen promoteBlack = new Queen(x, y, false);
-                getAssociatedBoard().getBoard()[x][y].setPiece(promoteBlack);
-                JLabel queenLabel = new JLabel("src/Assets/queenBlack");
-                getAssociatedBoard().getBoard()[x][y].setjLabel(queenLabel);
-                setPromoted(true);
-                System.out.println("promoted");
-            }
-            else
-            {
-                super.move(x,y);
-            }
-        }
-
-         */
 
 
     }
@@ -72,7 +35,7 @@ public class Pawn extends Piece {
         this.promoted = promoted;
     }
 
-    public boolean getPromoted()
+    public boolean isPromoted()
     {
         return promoted;
     }

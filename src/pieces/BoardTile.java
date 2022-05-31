@@ -172,31 +172,26 @@ public class BoardTile extends JButton {
                     selectedPiece.move(getPOSITIONX(),getPOSITIONY());
                     System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
                     associatedBoard.setSelectedAll(false);
-                    if(isOccupied() && getPiece().getPieceName().equals("pawn")&& getPOSITIONX() == 0 || getPOSITIONX() == 7)
+                    //pawn promotion: has to be put here since move methods run before this (and this replaces icons)
+                    if(isOccupied() && getPiece().getPieceName().equals("pawn") && ((Pawn)getPiece()).isPromoted())
                     {
+                        Pawn pawnPromoted = (Pawn) getPiece();
                         int x = getPOSITIONX();
                         int y = getPOSITIONY();
-                        if(x == 0)
-                        {
-                            Queen promoteWhite = new Queen(x,y,true);
-                            promoteWhite.setBoard(associatedBoard);
-                            associatedBoard.getBoard()[selectedPiece.getPositionX()][selectedPiece.getPositionY()].setPiece(null);//removes pawn
-                            associatedBoard.getBoard()[selectedPiece.getPositionX()][selectedPiece.getPositionY()].removeJLabel();
-                            setPiece(promoteWhite);
-                            JLabel queenLabel = new JLabel(new ImageIcon("src/Assets/queenWhite.png"));
-                            removeJLabel();
-                            setjLabel(queenLabel);
-                            associatedBoard.setSelectedAll(false);
-
-                            Board.FRAME.invalidate();
-                            Board.FRAME.validate();
-                            Board.FRAME.repaint();
-                            System.out.println("promoted");
-                        }
-                        if(x == 7)
-                        {
-
-                        }
+                        Queen promoteWhite = new Queen(x,y,true);
+                        promoteWhite.setBoard(associatedBoard);
+                        associatedBoard.getBoard()[selectedPiece.getPositionX()][selectedPiece.getPositionY()].setPiece(null);//removes pawn
+                        associatedBoard.getBoard()[selectedPiece.getPositionX()][selectedPiece.getPositionY()].removeJLabel();
+                        Board.FRAME.invalidate();
+                        Board.FRAME.validate();
+                        Board.FRAME.repaint();
+                        System.out.println(x +","+y + " moveeeddddd");
+                        setPiece(promoteWhite);
+                        JLabel queenLabel = new JLabel(new ImageIcon("src/Assets/queenWhite.png"));
+                        //removeJLabel();
+                        setjLabel(queenLabel);
+                        associatedBoard.setSelectedAll(false);
+                        //dont forget a write to file here!
                     }
                     else {
                         //adds the moved piece icon
