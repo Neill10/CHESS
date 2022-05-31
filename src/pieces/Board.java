@@ -16,8 +16,8 @@ public class Board {
     public static final int LEN = 8;
     private boolean whiteTurn;
     //true == white's move, false == black's move
-    private Piece selectedPiece;
-    private BoardTile selectedTile;
+    private Piece selectedPiece;//piece that moving
+    private BoardTile selectedTile;//boardtile that is being moved to
     public static final JFrame FRAME = new JFrame();
     private ArrayList<Piece> whiteP;
     private ArrayList<Piece> blackP;
