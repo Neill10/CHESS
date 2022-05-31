@@ -13,9 +13,9 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean move(int x, int y) {
+    public void move(int x, int y) {
         setFirstMove(false);
-        return super.move(x, y);
+        super.move(x, y);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package pieces;
+import Saver.Saver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Period;
 import java.util.ArrayList;
@@ -18,9 +21,9 @@ public class Board {
     public static final JFrame FRAME = new JFrame();
     private ArrayList<Piece> whiteP;
     private ArrayList<Piece> blackP;
+    private Saver save;
 
-
-    public Board()
+    public Board(String fileName)
     {
         board = new BoardTile[LEN][LEN];
 
@@ -42,6 +45,12 @@ public class Board {
         whiteTurn = true;
         blackP = new ArrayList<Piece>();
         whiteP = new ArrayList<Piece>();
+
+        save = new Saver(fileName);
+
+        fillBoard();
+        assignBoard();
+        createFrame();
     }
 
     public void assignBoard()
@@ -254,6 +263,9 @@ public class Board {
 
     public ArrayList<Piece> getWhiteP() {
         return whiteP;
+    }
+    public Saver getSave() {
+        return save;
     }
 
     public void setSelectedPiece(Piece selectedPiece) {

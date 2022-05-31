@@ -4,11 +4,17 @@ import pieces.*;
 public class Main {
 
     public static void main(String[] args) {
-        Board b = new Board();
-
-        b.fillBoard();
-        b.assignBoard();//assigns all the pieces inside to b, so they can reference boardTiles.
+        String fileName = "src/saver1.txt";
+        Board b = new Board(fileName);
         b.printBoard();
+        System.out.println(b.getSave());
+
+        fileName = "src/saver2.txt";
+        Board b2 = new Board(fileName);
+
+        b2.printBoard();
+        System.out.println(b.getSave());
+
         //b.printTiles();
         /*
         System.out.println("rBL:" + b.getBoard()[0][0].getPiece().possibleMoves());//arraylist<boardTile>
@@ -29,8 +35,6 @@ public class Main {
         /*
         Piece rook = b.getBoard()[0][0].getPiece();
         rook.move(6,0);
-
          */
-        b.createFrame();
     }
 }

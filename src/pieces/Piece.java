@@ -1,6 +1,7 @@
 package pieces;
 
 import javax.swing.*;
+import java.io.File;
 import java.util.*;
 public abstract class Piece {
     private boolean white;
@@ -19,8 +20,8 @@ public abstract class Piece {
         possibleMoves = new ArrayList<BoardTile>();
     }
 
-    //public abstract? boolean move(int x, int y);//returns if piece successfully moved
-    public boolean move(int x, int y) {
+    //public abstract? void move(int x, int y);//returns if piece successfully moved
+    public void move(int x, int y) {
         possibleMoves = possibleMoves();
         for(BoardTile tile : getPossibleMoves())
         {
@@ -29,15 +30,18 @@ public abstract class Piece {
                 BoardTile[][] b = board.getBoard();
                 b[getPositionX()][getPositionY()].setPiece(null);
 
-                b[x][y].setPiece(this);//replacings any pieces at new location
+                b[x][y].setPiece(this);//replacing any pieces at new location
                 b[x][y].getPiece().setPositionX(x);
                 b[x][y].getPiece().setPositionY(y);
                 board.setSelectedAll(false);
-                return true;
+
+                board.getSave().writeToFile();
+
+                System.out.println("piece moved");
             }
         }
-        return false;
     }
+
     public ArrayList<Piece> getTeam()
     {
         if(isWhite()) {
@@ -60,6 +64,8 @@ public abstract class Piece {
             return getAssociatedBoard().getWhiteP();
         }
     }
+
+
     public abstract ArrayList<BoardTile> possibleMoves();
 
     public void setBoard(Board board) {

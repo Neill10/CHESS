@@ -172,12 +172,41 @@ public class BoardTile extends JButton {
                     selectedPiece.move(getPOSITIONX(),getPOSITIONY());
                     System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
                     associatedBoard.setSelectedAll(false);
-                    //adds the moved piece icon
-                    jLabel = selectedTile.getjLabel();
-                    add(jLabel);
-                    selectedTile.removeJLabel();
+                    if(isOccupied() && getPiece().getPieceName().equals("pawn")&& getPOSITIONX() == 0 || getPOSITIONX() == 7)
+                    {
+                        int x = getPOSITIONX();
+                        int y = getPOSITIONY();
+                        if(x == 0)
+                        {
+                            Queen promoteWhite = new Queen(x,y,true);
+                            promoteWhite.setBoard(associatedBoard);
+                            associatedBoard.getBoard()[selectedPiece.getPositionX()][selectedPiece.getPositionY()].setPiece(null);//removes pawn
+                            associatedBoard.getBoard()[selectedPiece.getPositionX()][selectedPiece.getPositionY()].removeJLabel();
+                            setPiece(promoteWhite);
+                            JLabel queenLabel = new JLabel(new ImageIcon("src/Assets/queenWhite.png"));
+                            removeJLabel();
+                            setjLabel(queenLabel);
+                            associatedBoard.setSelectedAll(false);
+
+                            Board.FRAME.invalidate();
+                            Board.FRAME.validate();
+                            Board.FRAME.repaint();
+                            System.out.println("promoted");
+                        }
+                        if(x == 7)
+                        {
+
+                        }
+                    }
+                    else {
+                        //adds the moved piece icon
+                        jLabel = selectedTile.getjLabel();
+                        add(jLabel);
+                        selectedTile.removeJLabel();
+                    }
                     //flips turn
                     associatedBoard.setWhiteTurn(!associatedBoard.isWhiteTurn());
+
                     Board.FRAME.invalidate();
                     Board.FRAME.validate();
                     Board.FRAME.repaint();
@@ -255,8 +284,6 @@ public class BoardTile extends JButton {
     public boolean isOccupied() {
         return piece != null;
     }
-
-
 
     public Piece getPiece() {
         return piece;
