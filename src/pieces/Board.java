@@ -5,13 +5,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.Period;
 import java.util.ArrayList;
 
-public class Board {
+public class Board implements Serializable {
     private BoardTile[][] board;
     public static final int LEN = 8;
     private boolean whiteTurn;
@@ -21,23 +24,18 @@ public class Board {
     public static final JFrame FRAME = new JFrame();
     private ArrayList<Piece> whiteP;
     private ArrayList<Piece> blackP;
-    private Saver save;
+    private String saveFile;
 
     public Board(String fileName)
     {
+        saveFile = fileName;
         board = new BoardTile[LEN][LEN];
-
-        for(int i = 0; i < LEN; i++)
-        {
-            for(int y = 0 ; y < LEN ; y++)
-            {
-                if((i + y) % 2 == 0)
-                {
-                    board[i][y] = new BoardTile(i,y,true);
-                }
-                else
-                {
-                    board[i][y] = new BoardTile(i,y,false);
+        for (int i = 0; i < LEN; i++) {
+            for (int y = 0; y < LEN; y++) {
+                if ((i + y) % 2 == 0) {
+                    board[i][y] = new BoardTile(i, y, true);
+                } else {
+                    board[i][y] = new BoardTile(i, y, false);
                 }
 
             }
@@ -45,12 +43,8 @@ public class Board {
         whiteTurn = true;
         blackP = new ArrayList<Piece>();
         whiteP = new ArrayList<Piece>();
-
-        save = new Saver(fileName);
-
         fillBoard();
         assignBoard();
-        createFrame();
     }
 
     public void assignBoard()
@@ -239,12 +233,24 @@ public class Board {
         FRAME.setResizable(false);
         FRAME.setLayout(null);
         FRAME.setVisible(true);
+        FRAME.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        FRAME.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                //saving class here
+                Saver.saveToFile(Board.this,getSaveFile());
+                //and then dispose frame
+                FRAME.dispose();
+            }
+        });
     }
 
     public void setWhiteTurn(boolean whiteTurn)
     {
        this. whiteTurn = whiteTurn;
     }
+
 
     public void setSelectedAll(boolean selected)
     {
@@ -264,9 +270,6 @@ public class Board {
     public ArrayList<Piece> getWhiteP() {
         return whiteP;
     }
-    public Saver getSave() {
-        return save;
-    }
 
     public void setSelectedPiece(Piece selectedPiece) {
         this.selectedPiece = selectedPiece;
@@ -278,6 +281,10 @@ public class Board {
 
     public void setSelectedTile(BoardTile selectedTile) {
         this.selectedTile = selectedTile;
+    }
+
+    public String getSaveFile() {
+        return saveFile;
     }
 
     public BoardTile getSelectedTile() {

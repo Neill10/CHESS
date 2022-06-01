@@ -6,10 +6,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.*;
 import javax.swing.*;
 
-public class BoardTile extends JButton {
+public class BoardTile extends JButton implements Serializable {
     private boolean whiteSquare;
     private final int POSITIONX;//(1,2,3,4,5,6,7,8)
     private final int POSITIONY;//(a,b,c,d,e,f,g,h)
@@ -108,7 +109,7 @@ public class BoardTile extends JButton {
 
     public JButton createTileButton()
     {
-        //sets up inital look
+        //sets up initial look
         if(isOccupied()) {
             String pieceName = piece.getPieceName();
             boolean pieceColor = piece.isWhite();
@@ -130,6 +131,8 @@ public class BoardTile extends JButton {
                     if(isOccupied()) {
                         if(associatedBoard.isWhiteTurn() == piece.isWhite())
                         {
+
+                            //resets board tiles, so it doesn't leave behind highlighted tiles
                             for(BoardTile[] tiles : associatedBoard.getBoard())
                             {
                                 for(BoardTile tile : tiles)
@@ -191,7 +194,7 @@ public class BoardTile extends JButton {
                     }
                 } else {//selected is true you can move
                     Piece selectedPiece = associatedBoard.getSelectedPiece();
-                    //dehighlighting tiles
+                    //limelighting tiles
                     ArrayList<BoardTile> dehighlight = selectedPiece.getPossibleMoves();
                     for(BoardTile tile : dehighlight)
                     {
@@ -220,6 +223,7 @@ public class BoardTile extends JButton {
                     jLabel = selectedTile.getjLabel();
                     add(jLabel);
                     selectedTile.removeJLabel();
+                    System.out.println(selectedTile);
                     //changes pawn to a queen if it on back rank
                     if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") &&getPOSITIONX() == 7 )
                     {
@@ -261,7 +265,7 @@ public class BoardTile extends JButton {
                     Board.FRAME.invalidate();
                     Board.FRAME.validate();
                     Board.FRAME.repaint();
-                       /*
+                    /*
                     Piece rook = associatedBoard.getBoard()[0][0].getPiece();
                     rook.move(6,0);
                      */
