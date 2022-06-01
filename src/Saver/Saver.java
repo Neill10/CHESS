@@ -1,44 +1,39 @@
 package Saver;
 
+import pieces.Board;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.*;
 
-public class Saver {
-    private File file;
-    private FileWriter myWriter;
-    private FileReader fr;
+public class Saver implements Serializable{
 
-    public Saver(String fileName)
-    {
-        file = new File(fileName);
-        try{
-            file.createNewFile();
-        }catch (IOException e ){
-            System.out.println(fileName + " cannot be found.");
-        }
-    }
-
-
-    public void writeToFile()
+    public static void saveToFile(Board b,String file)
     {
         System.out.println("writeToFile ran");
         try {
-            myWriter = new FileWriter(file);
-            myWriter.write("piece moved\n");
-            myWriter.close();
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(file)));
+            outputStream.writeObject(b);
+            outputStream.close();
         }catch (IOException e ){
-            System.out.println("error saving move");
+            e.printStackTrace();
+            System.out.println("error saving");
         }
     }
 
-    @Override
-    public String toString() {
-        return "Saver{" +
-                "file=" + file +
-                ", myWriter=" + myWriter +
-                ", fr=" + fr +
-                '}';
+    public static Board getSaveFile(String file) {
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(new File(file)));
+            Board b = (Board) inputStream.readObject();
+            System.out.println(b.isWhiteTurn());
+            inputStream.close();
+            return b;
+        } catch(Exception e) {
+            System.out.println("bruh");
+            return null;
+        }
     }
+
 }

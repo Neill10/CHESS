@@ -2,8 +2,9 @@ package pieces;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.Serializable;
 import java.util.*;
-public abstract class Piece {
+public abstract class Piece implements Serializable {
     private boolean white;
     private int positionX;//(a,b,c,d,e,f,g,h)(ROW)
     private int positionY;//(1,2,3,4,5,6,7,8)(COL)
@@ -34,8 +35,8 @@ public abstract class Piece {
                 b[x][y].getPiece().setPositionX(x);
                 b[x][y].getPiece().setPositionY(y);
                 board.setSelectedAll(false);
-
-                board.getSave().writeToFile();
+                //future implementation should try to add saving moves
+                //board.getSave().writeToFile();
 
                 System.out.println("piece moved");
             }

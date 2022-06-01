@@ -1,19 +1,22 @@
 package runner;
+import Saver.Saver;
 import pieces.*;
 
 public class Main {
 
     public static void main(String[] args) {
+
+
         String fileName = "src/saver1.txt";
-        Board b = new Board(fileName);
+        Board b = Saver.getSaveFile(fileName);
+        if(b == null)
+        {
+            b = new Board(fileName);
+        }
+        b.assignBoard();
+        b.createFrame();
         b.printBoard();
-        System.out.println(b.getSave());
-
-        fileName = "src/saver2.txt";
-        Board b2 = new Board(fileName);
-
-        b2.printBoard();
-        System.out.println(b.getSave());
+        //System.out.println(b.getSave());
 
         //b.printTiles();
         /*
