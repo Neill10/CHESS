@@ -40,13 +40,7 @@ public class Queen extends Piece {
         {
             queenPossibleMoves.add(tile);
         }
-        /*
-        can use either one
-        ArrayList<BoardTile> queenPossibleMoves = new ArrayList<BoardTile>(bishopPossibleMoves);
-        queenPossibleMoves.addAll(rookPossibleMoves);
-
-         */
-
+        setPossibleMoves(queenPossibleMoves);
         return queenPossibleMoves;
     }
 

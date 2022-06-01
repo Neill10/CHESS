@@ -55,6 +55,7 @@ public class Knight extends Piece{
 
              */
         }
+        setPossibleMoves(knightPossibleMoves);
         return knightPossibleMoves;
     }
 

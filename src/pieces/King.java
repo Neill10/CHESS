@@ -81,17 +81,6 @@ public class King extends Piece {
 
                 }
             }
-            /*
-            for (int x = 0; x < kingPossibleMoves.size(); x++) {
-                for (int p = 0; p < king.size(); p++) {
-                    if (king.get(p).equals(kingPossibleMoves.get(x))) {
-                        kingPossibleMoves.remove(x);//removes from king possible moves
-                    }
-
-                }
-            }
-
-             */
         }
         else {
             ArrayList<BoardTile> enemyPieceCheck = new ArrayList<BoardTile>();
@@ -113,36 +102,7 @@ public class King extends Piece {
                 }
             }
         }
-        /*
-        for(int i = 0; i < enemyPieces.size();i++)
-        {
-
-            ArrayList<BoardTile> pieceMoves = enemyPieces.get(i).possibleMoves();
-            for(int x = 0; x < pieceMoves.size(); x++)
-            {
-                for(int z = 0; z < enemyPieceCheck.size();z++)
-                {
-                    //if(enemyPieceCheck.get(z).equals())
-                }
-            }
-            enemyPieceCheck.addAll(pieceMoves);
-        }
-        System.out.println(enemyPieceCheck);
-        for (int i = 0; i < kingPossibleMoves.size();i++)
-        {
-            for(int x = 0; x < enemyPieceCheck.size();x++)
-            {
-                if(enemyPieceCheck.get(x).equals(kingPossibleMoves.get(i)))
-                {
-                    System.out.println("tile removed");
-                    kingPossibleMoves.remove(i);
-                    i--;
-                    break;
-                }
-            }
-        }
-
-         */
+        setPossibleMoves(kingPossibleMoves);
         return kingPossibleMoves;
 
     }

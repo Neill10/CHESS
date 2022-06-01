@@ -122,6 +122,7 @@ public class Rook extends Piece{
                 diff++;
             }
         }
+        setPossibleMoves(rookPossibleMoves);
         return rookPossibleMoves;
     }
 

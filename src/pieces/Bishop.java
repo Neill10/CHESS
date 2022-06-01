@@ -109,6 +109,7 @@ public class Bishop extends Piece{
                 diffY++;
             }
         }
+        setPossibleMoves(bishopPossibleMoves);
         return bishopPossibleMoves;
     }
 
