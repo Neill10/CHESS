@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.time.Period;
 import java.util.ArrayList;
 
@@ -47,6 +47,7 @@ public class Board implements Serializable {
         assignBoard();
     }
 
+    //assigns all pieces's board object to this board object
     public void assignBoard()
     {
         for(int i = 0; i < LEN; i++)
@@ -59,6 +60,7 @@ public class Board implements Serializable {
         }
     }
 
+    //sets a default board
     public void fillBoard()
     {
         /*
@@ -234,6 +236,7 @@ public class Board implements Serializable {
         FRAME.setLayout(null);
         FRAME.setVisible(true);
         FRAME.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
         FRAME.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

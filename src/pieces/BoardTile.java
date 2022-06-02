@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -67,32 +67,6 @@ public class BoardTile extends JButton implements Serializable {
             });
             System.out.println("piece moved");
         }
-        /*
-
-        Board b = piece.getAssociatedBoard();
-
-        //b.setDeselectAll();//sets all boardTiles to deselected
-        ArrayList<BoardTile> moves = piece.possibleMoves();
-        for (BoardTile tilePossible : moves) {
-            System.out.print(tilePossible);
-            tilePossible.setSelected(true);
-
-            Icon tileIcon = tilePossible.getIcon();
-            //tilePossible.remove(tileIcon);
-            tilePossible.setBackground(Color.BLUE);
-            tilePossible.setIcon(tileIcon);
-
-            //tilePossible.setIcon(new ImageIcon("src/Assets/blackSquare.png"));//icon not setting???
-        }
-
-         */
-        /*
-        tile.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent moving) {
-
-            }
-        });
-         */
     }
 
     public ArrayList<BoardTile> makeTilePossible()
@@ -292,8 +266,6 @@ public class BoardTile extends JButton implements Serializable {
             }
         }
 
-        //tile.setRolloverEnabled(true);
-        //setOverLay(tile);
         setVisible(true);
         return this;
     }

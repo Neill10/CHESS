@@ -2,7 +2,7 @@ package pieces;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 public abstract class Piece implements Serializable {
     private boolean white;

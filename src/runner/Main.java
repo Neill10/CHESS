@@ -6,16 +6,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         String fileName = "src/saver1.txt";
         Board b = Saver.getSaveFile(fileName);
         if(b == null)
         {
             b = new Board(fileName);
+            System.out.println("new board game");
         }
-        b.assignBoard();
+        //b.assignBoard();
         b.createFrame();
         b.printBoard();
+        //Problem with saving using serializable
+        //Causes chess board to not delete jlabels
+
         //System.out.println(b.getSave());
 
         //b.printTiles();
