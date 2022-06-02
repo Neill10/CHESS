@@ -187,16 +187,14 @@ public class BoardTile extends JButton implements Serializable {
                     BoardTile selectedTile = associatedBoard.getSelectedTile();//tiles that piece is moving to
                     //deletes one icon
                     removeJLabel();
+                    jLabel = selectedTile.getjLabel();
+                    add(jLabel);
+                    selectedTile.removeJLabel();
                     selectedPiece.move(getPOSITIONX(),getPOSITIONY());
                     System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
                     associatedBoard.setSelectedAll(false);
                     //pawn promotion: has to be put here since move methods run before this (and this replaces icons)
-
-
-                    //adds the moved piece icon
-                    jLabel = selectedTile.getjLabel();
-                    add(jLabel);
-                    selectedTile.removeJLabel();
+                    
                     System.out.println(selectedTile);
                     //changes pawn to a queen if it on back rank
                     if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") &&getPOSITIONX() == 7 )
@@ -282,7 +280,7 @@ public class BoardTile extends JButton implements Serializable {
     public void removeJLabel()
     {
         if(isOccupied()) {
-            remove(jLabel);
+            removeAll();
         }
     }
 
