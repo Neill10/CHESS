@@ -12,7 +12,6 @@ public class Saver implements Serializable{
 
     public static void saveToFile(Board b,String file)
     {
-        System.out.println("writeToFile ran");
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(file)));
             outputStream.writeObject(b);
@@ -27,11 +26,10 @@ public class Saver implements Serializable{
         try {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(new File(file)));
             Board b = (Board) inputStream.readObject();
-            System.out.println(b.isWhiteTurn());
             inputStream.close();
             return b;
         } catch(Exception e) {
-            System.out.println("bruh");
+            System.out.println("no save file found");
             return null;
         }
     }

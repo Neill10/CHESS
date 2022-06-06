@@ -47,7 +47,7 @@ public class King extends Piece {
 
     public ArrayList<BoardTile> removeEnemyCheckTiles(ArrayList<BoardTile> kingPossibleMoves) {
         //need to remove piece after king captures and need to re-evaluate how possible piece is moved. also need to fix pawn captures
-        if(getPieceName().equals("king") && getAssociatedBoard().isWhiteTurn() != isWhite())//stops a recursive method from happening
+        if(getPieceName().equals("king") && getAssociatedBoard().isPlayerTurn() != isWhite())//stops a recursive method from happening
         {
             ArrayList<BoardTile> king = new ArrayList<BoardTile>();
             int[][] offsets = {

@@ -31,6 +31,10 @@ public abstract class Piece implements Serializable {
                 BoardTile[][] b = board.getBoard();
                 b[getPositionX()][getPositionY()].setPiece(null);
 
+                if(b[x][y].isOccupied()) {
+                    getEnemyTeam().remove(b[x][y].getPiece());
+                }
+
                 b[x][y].setPiece(this);//replacing any pieces at new location
                 b[x][y].getPiece().setPositionX(x);
                 b[x][y].getPiece().setPositionY(y);

@@ -101,9 +101,11 @@ public class BoardTile extends JButton implements Serializable {
         //updates board based on user clicks
         addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent clicked) {
-                if (!selected) {//shows possible move
-                    if(isOccupied()) {
-                        if(associatedBoard.isWhiteTurn() == piece.isWhite())
+                if (!selected)
+                {//shows possible move
+                    if(isOccupied())
+                    {
+                        if(pieceInPlayerTeam())
                         {
 
                             //resets board tiles, so it doesn't leave behind highlighted tiles
@@ -166,81 +168,100 @@ public class BoardTile extends JButton implements Serializable {
                         System.out.print("no piece at :");
                         System.out.println("(" + POSITIONX + "," + POSITIONY + ")");
                     }
-                } else {//selected is true you can move
-                    Piece selectedPiece = associatedBoard.getSelectedPiece();
-                    //limelighting tiles
-                    ArrayList<BoardTile> dehighlight = selectedPiece.getPossibleMoves();
-                    for(BoardTile tile : dehighlight)
+                }
+                else
+                {
+                //selected is true you can move
+                Piece selectedPiece = associatedBoard.getSelectedPiece();
+                //limelighting tiles
+                ArrayList<BoardTile> dehighlight = selectedPiece.getPossibleMoves();
+                for(BoardTile tile : dehighlight)
+                {
+                    if (tile.isWhiteSquare())
                     {
-                        if (tile.isWhiteSquare())
-                        {
-                            tile.setIcon(new ImageIcon("src/Assets/whiteSquare.png"));
+                        tile.setIcon(new ImageIcon("src/Assets/whiteSquare.png"));
 
-                        }
-                        else
-                        {
-                            tile.setIcon(new ImageIcon("src/Assets/greenSquare.png"));
-
-                        }
                     }
-
-                    BoardTile selectedTile = associatedBoard.getSelectedTile();//tiles that piece is moving to
-                    //deletes one icon
-                    removeJLabel();
-                    jLabel = selectedTile.getjLabel();
-                    add(jLabel);
-                    selectedTile.removeJLabel();
-                    selectedPiece.move(getPOSITIONX(),getPOSITIONY());
-                    System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
-                    associatedBoard.setSelectedAll(false);
-                    //pawn promotion: has to be put here since move methods run before this (and this replaces icons)
-                    
-                    System.out.println(selectedTile);
-                    //changes pawn to a queen if it on back rank
-                    if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") &&getPOSITIONX() == 7 )
+                    else
                     {
-                        if(getPOSITIONX()== 0)
-                        {
-                            Board b = associatedBoard;
-                            Queen promoteWhite = new Queen(getPOSITIONX(), getPOSITIONY(), true);
-                            promoteWhite.setBoard(b);
-                            b.getBoard()[getPOSITIONX()][getPOSITIONY()].setPiece(promoteWhite);//sets the pawn piece into null
-                            System.out.println("promoted");
-                            selectedTile.removeJLabel();
+                        tile.setIcon(new ImageIcon("src/Assets/greenSquare.png"));
 
-                            removeJLabel();
-                            jLabel = new JLabel(new ImageIcon("src/Assets/queenWhite.png"));
-                            add(jLabel);
-                        }
-                        else if(getPOSITIONX() == 7)
-                        {
-
-                            Board b = associatedBoard;
-                            Queen promoteBlack = new Queen(getPOSITIONX(), getPOSITIONY(), false);
-                            promoteBlack.setBoard(b);
-                            b.getBoard()[getPOSITIONX()][getPOSITIONY()].setPiece(promoteBlack);//sets the pawn piece into null
-                            System.out.println("promoted");
-                            selectedTile.removeJLabel();
-
-                            removeJLabel();
-                            jLabel = new JLabel(new ImageIcon("src/Assets/queenBlack.png"));
-                            add(jLabel);
-                        }
-                        else
-                        {
-                            System.out.println("something went wrong");
-                        }
                     }
-                    //flips turn
-                    associatedBoard.setWhiteTurn(!associatedBoard.isWhiteTurn());
+                }
+                BoardTile selectedTile = associatedBoard.getSelectedTile();//tiles that piece is moving to
+                //deletes one icon
+                removeJLabel();
+                jLabel = selectedTile.getjLabel();
+                System.out.println(jLabel);
 
-                    Board.FRAME.invalidate();
-                    Board.FRAME.validate();
-                    Board.FRAME.repaint();
-                    /*
-                    Piece rook = associatedBoard.getBoard()[0][0].getPiece();
-                    rook.move(6,0);
-                     */
+                add(jLabel);
+
+                selectedTile.removeJLabel();
+                selectedPiece.move(getPOSITIONX(),getPOSITIONY());
+                System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
+                associatedBoard.setSelectedAll(false);
+                //pawn promotion: has to be put here since move methods run before this (and this replaces icons)
+
+                System.out.println(selectedTile);
+                //changes pawn to a queen if it on back rank
+                if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") &&getPOSITIONX() == 7 )
+                {
+                    if(getPOSITIONX()== 0)
+                    {
+                        Board b = associatedBoard;
+                        Queen promoteWhite = new Queen(getPOSITIONX(), getPOSITIONY(), true);
+                        promoteWhite.setBoard(b);
+                        b.getBoard()[getPOSITIONX()][getPOSITIONY()].setPiece(promoteWhite);//sets the pawn piece into null
+                        System.out.println("promoted");
+                        selectedTile.removeJLabel();
+                        b.getPlayerTeam().add(promoteWhite);
+                        removeJLabel();
+                        jLabel = new JLabel(new ImageIcon("src/Assets/queenWhite.png"));
+                        add(jLabel);
+                    }
+                    else if(getPOSITIONX() == 7)
+                    {
+
+                        Board b = associatedBoard;
+                        Queen promoteBlack = new Queen(getPOSITIONX(), getPOSITIONY(), false);
+                        promoteBlack.setBoard(b);
+                        b.getBoard()[getPOSITIONX()][getPOSITIONY()].setPiece(promoteBlack);//sets the pawn piece into null
+                        System.out.println("promoted");
+                        selectedTile.removeJLabel();
+
+                        removeJLabel();
+                        jLabel = new JLabel(new ImageIcon("src/Assets/queenBlack.png"));
+                        add(jLabel);
+                    }
+                    else
+                    {
+                        System.out.println("something went wrong");
+                    }
+                }
+                //flips turn
+                //associatedBoard.setPlayerTurn(!associatedBoard.isPlayerTurn());
+
+                boolean enemy = associatedBoard.alive(associatedBoard.enemyTeam());
+                if(enemy == false)
+                {
+                    System.out.println("YOU WON!");
+                    System.exit(0);
+                }
+                associatedBoard.SAMbot();
+                boolean player = associatedBoard.alive(associatedBoard.getPlayerTeam());
+                if(player == false)
+                {
+                    System.out.println("YOU LOST!");
+                    System.exit(0);
+                }
+
+                Board.FRAME.invalidate();
+                Board.FRAME.validate();
+                Board.FRAME.repaint();
+                /*
+                Piece rook = associatedBoard.getBoard()[0][0].getPiece();
+                rook.move(6,0);
+                 */
                 }
             }
         });
@@ -268,6 +289,18 @@ public class BoardTile extends JButton implements Serializable {
         return this;
     }
 
+    public boolean pieceInPlayerTeam()
+    {
+        boolean inPlayerTeam = false;
+        for(Piece p : associatedBoard.getPlayerTeam())
+        {
+            if(piece.equals(p))
+            {
+                inPlayerTeam = true;
+            }
+        }
+        return inPlayerTeam;
+    }
 
     public JLabel getjLabel() {
         return jLabel;
