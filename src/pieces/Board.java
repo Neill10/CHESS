@@ -285,6 +285,77 @@ public class Board implements Serializable {
 
     }
 
+    //the bot moves by using the Super Advanced Movement algorithm (aka S.A.M)
+    public void SAMbot()
+    {
+        //this algorithm gets a random piece from the bot's team, and picks a random move the piece can move
+
+        //picks a random piece from bot pieces
+        int i = (int) (Math.random() * blackP.size());
+        //i = (int) Math.random() * blackP.size();
+        Piece randomP = null;
+
+        if(playerTeam.equals(whiteP)) {
+            randomP = blackP.get(i);
+        }
+        else
+        {
+            randomP = whiteP.get(i);
+        }
+
+        //will only move piece that can move
+        while(randomP.possibleMoves().size() == 0)
+        {
+            if(!randomP.isWhite())
+            {
+                i = (int) (Math.random() * blackP.size());
+                System.out.println(i);
+                randomP = blackP.get(i);
+                System.out.println(randomP);
+            }
+            else
+            {
+                i = (int) (Math.random() * whiteP.size());
+                System.out.println(i);
+                randomP = whiteP.get(i);
+                System.out.println(randomP);
+            }
+
+        }
+
+        //finds the boardTile connected to the random piece
+        JLabel randomPieceLabel = new JLabel();
+        for(BoardTile[] tiles : board)
+        {
+            for(BoardTile tile : tiles)
+            {
+                if(tile.isOccupied() && tile.getPiece().equals(randomP))
+                {
+                    randomPieceLabel = tile.getjLabel();
+                    System.out.println(randomPieceLabel);
+                    tile.removeAll();
+                }
+            }
+        }
+
+        //finds a random move of the random Piece
+        ArrayList<BoardTile> randomMoves = randomP.possibleMoves();
+        i = (int)(Math.random() * randomMoves.size());
+        BoardTile newTile = randomMoves.get(i);
+        //removes jlabel at location and adds moved piece jLabel to new tile
+        newTile.removeJLabel();
+
+        randomP.move(newTile.getPOSITIONX(),newTile.getPOSITIONY());
+
+        newTile.setjLabel(randomPieceLabel);
+        newTile.add(randomPieceLabel);
+
+
+        System.out.println(whiteP);
+        System.out.println(blackP);
+        System.out.println(randomP + "moved to " + newTile.getPOSITIONX() +", " + newTile.getPOSITIONY());
+    }
+
     public JButton resetGameButton()
     {
         JButton resetButton = new JButton("Reset");
@@ -369,62 +440,6 @@ public class Board implements Serializable {
                 tile.setSelected(selected);
             }
         }
-    }
-
-    //the bot moves by using the Super Advanced Movement algorithm (aka S.A.M)
-    public void SAMbot()
-    {
-        //this algorithm gets a random piece from the bot's team, and picks a random move the piece can move
-
-        //picks a random piece from bot pieces
-        int i = (int) (Math.random() * blackP.size());
-        //i = (int) Math.random() * blackP.size();
-        Piece randomP = whiteP.get(i);
-        if(playerTeam.equals(whiteP)) {
-            randomP = blackP.get(i);
-        }
-
-        //will only move piece that can move
-        while(randomP.possibleMoves().size() == 0)
-        {
-            i = (int) (Math.random() * blackP.size());
-            System.out.println(i);
-            randomP = blackP.get(i);
-            System.out.println(randomP);
-        }
-
-        //finds the boardTile connected to the random piece
-        JLabel randomPieceLabel = new JLabel();
-        for(BoardTile[] tiles : board)
-        {
-            for(BoardTile tile : tiles)
-            {
-                if(tile.isOccupied() && tile.getPiece().equals(randomP))
-                {
-                    randomPieceLabel = tile.getjLabel();
-                    System.out.println(randomPieceLabel);
-                    tile.removeAll();
-                }
-            }
-        }
-
-        //finds a random move of the random Piece
-        ArrayList<BoardTile> randomMoves = randomP.possibleMoves();
-        i = (int)(Math.random() * randomMoves.size());
-        BoardTile newTile = randomMoves.get(i);
-        //removes jlabel at location and adds moved piece jLabel to new tile
-        newTile.removeJLabel();
-
-        System.out.println(newTile + " bruhhhhhh");
-        randomP.move(newTile.getPOSITIONX(),newTile.getPOSITIONY());
-
-        newTile.setjLabel(randomPieceLabel);
-        newTile.add(randomPieceLabel);
-
-
-        System.out.println(whiteP);
-        System.out.println(blackP);
-        System.out.println(randomP + "moved to " + newTile.getPOSITIONX() +", " + newTile.getPOSITIONY());
     }
 
     public ArrayList<Piece> getBlackP() {

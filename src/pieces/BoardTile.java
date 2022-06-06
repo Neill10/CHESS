@@ -228,7 +228,7 @@ public class BoardTile extends JButton implements Serializable {
                         b.getBoard()[getPOSITIONX()][getPOSITIONY()].setPiece(promoteBlack);//sets the pawn piece into null
                         System.out.println("promoted");
                         selectedTile.removeJLabel();
-
+                        b.getPlayerTeam().add(promoteBlack);
                         removeJLabel();
                         jLabel = new JLabel(new ImageIcon("src/Assets/queenBlack.png"));
                         add(jLabel);
