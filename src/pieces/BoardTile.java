@@ -203,8 +203,9 @@ public class BoardTile extends JButton implements Serializable {
                 //pawn promotion: has to be put here since move methods run before this (and this replaces icons)
 
                 System.out.println(selectedTile);
+
                 //changes pawn to a queen if it on back rank
-                if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") &&getPOSITIONX() == 7 )
+                if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 7 )
                 {
                     if(getPOSITIONX()== 0)
                     {
@@ -238,7 +239,6 @@ public class BoardTile extends JButton implements Serializable {
                         System.out.println("something went wrong");
                     }
                 }
-                //flips turn
                 //associatedBoard.setPlayerTurn(!associatedBoard.isPlayerTurn());
 
                 boolean enemy = associatedBoard.alive(associatedBoard.enemyTeam());
@@ -247,6 +247,7 @@ public class BoardTile extends JButton implements Serializable {
                     System.out.println("YOU WON!");
                     System.exit(0);
                 }
+                //BOT MOVES
                 associatedBoard.SAMbot();
                 boolean player = associatedBoard.alive(associatedBoard.getPlayerTeam());
                 if(player == false)
@@ -270,7 +271,6 @@ public class BoardTile extends JButton implements Serializable {
                 icon = new ImageIcon("src/Assets/whiteSquare.png");
                 setIcon(icon);
             } catch (Exception ex) {
-                System.out.println(ex);
                 System.out.println("no whiteSquare file found");
             }
         }
@@ -280,7 +280,6 @@ public class BoardTile extends JButton implements Serializable {
                 icon = new ImageIcon("src/Assets/greenSquare.png");
                 setIcon(icon);
             } catch (Exception ex) {
-                System.out.println(ex);
                 System.out.println("no greenSquare file found");
             }
         }
@@ -294,9 +293,9 @@ public class BoardTile extends JButton implements Serializable {
         boolean inPlayerTeam = false;
         for(Piece p : associatedBoard.getPlayerTeam())
         {
-            if(piece.equals(p))
-            {
+            if (piece.equals(p)) {
                 inPlayerTeam = true;
+                break;
             }
         }
         return inPlayerTeam;

@@ -20,9 +20,6 @@ public class Main {
         //b.assignBoard();
         b.printBoard();
 
-        //System.out.println(b.getSave());
-
-        //b.printTiles();
         /*
         System.out.println("rBL:" + b.getBoard()[0][0].getPiece().possibleMoves());//arraylist<boardTile>
         System.out.println("rWL:" + b.getBoard()[7][0].getPiece().possibleMoves());

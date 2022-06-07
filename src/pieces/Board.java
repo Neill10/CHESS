@@ -19,7 +19,6 @@ public class Board implements Serializable {
     public static final int LEN = 8;
     private boolean playerTurn;
     private ArrayList<Piece> playerTeam;
-    //true == white's move, false == black's move
     private Piece selectedPiece;//piece that moving
     private BoardTile selectedTile;//boardtile that is being moved to
     public static final JFrame FRAME = new JFrame();
@@ -342,6 +341,7 @@ public class Board implements Serializable {
         ArrayList<BoardTile> randomMoves = randomP.possibleMoves();
         i = (int)(Math.random() * randomMoves.size());
         BoardTile newTile = randomMoves.get(i);
+
         //removes jlabel at location and adds moved piece jLabel to new tile
         newTile.removeJLabel();
 
@@ -363,20 +363,6 @@ public class Board implements Serializable {
         resetButton.addActionListener((ActionEvent e) ->  {
             fillBoard();
         });
-        /*
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fillBoard();
-                assignBoard();
-                System.out.println("Board reset");
-                FRAME.invalidate();
-                FRAME.revalidate();
-                FRAME.repaint();
-            }
-        });
-
-         */
         return resetButton;
     }
 
