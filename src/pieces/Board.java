@@ -46,7 +46,6 @@ public class Board implements Serializable {
                 board[i][x].getPiece().setBoard(this);
             }
         }
-        System.out.println("assign board ran");
     }
 
     //sets a default board
@@ -76,7 +75,7 @@ public class Board implements Serializable {
         standardSetUp();
         assignBoard();
         createFrame();
-        System.out.println("fill board ran");
+
         Board.FRAME.invalidate();
         Board.FRAME.validate();
         Board.FRAME.repaint();
@@ -215,13 +214,13 @@ public class Board implements Serializable {
         }
     }
 
-    public void createFrame()
+    public void userPrompt()
     {
         //prompts user to choose a team
         JDialog jd = new JDialog(FRAME);
         jd.setLayout(new FlowLayout());
         jd.setBounds(500, 300, 100, 150);
-
+        jd.setUndecorated(true);
         JLabel jLabel = new JLabel("Pick a Team");
         JButton black = new JButton("Black");
         black.addActionListener(new ActionListener() {
@@ -249,7 +248,10 @@ public class Board implements Serializable {
         jd.add(black);
         jd.add(white);
         jd.setVisible(true);
+    }
 
+    public void createFrame()
+    {
         int x = 10;
         int y = 10;
         for(int i = 0; i < LEN ; i++) {
@@ -263,7 +265,7 @@ public class Board implements Serializable {
             x += 80;
             y = 10;
         }
-        //JOptionPane.showMessageDialog(FRAME,pickTeam);
+
         FRAME.add(resetGameButton());
         FRAME.setSize(800,700);
         FRAME.setResizable(false);
@@ -274,11 +276,11 @@ public class Board implements Serializable {
         FRAME.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                //saving class here
-                Saver.saveToFile(Board.this,getSaveFile());
-                //and then dispose frame
-                FRAME.dispose();
+            super.windowClosing(e);
+            //saving class here
+            Saver.saveToFile(Board.this,getSaveFile());
+            //and then dispose frame
+            FRAME.dispose();
             }
         });
 
@@ -290,15 +292,17 @@ public class Board implements Serializable {
         //this algorithm gets a random piece from the bot's team, and picks a random move the piece can move
 
         //picks a random piece from bot pieces
-        int i = (int) (Math.random() * blackP.size());
-        //i = (int) Math.random() * blackP.size();
+
+        int i;
         Piece randomP = null;
 
         if(playerTeam.equals(whiteP)) {
+            i = (int) (Math.random() * blackP.size());
             randomP = blackP.get(i);
         }
         else
         {
+            i = (int) (Math.random() * whiteP.size());
             randomP = whiteP.get(i);
         }
 
@@ -308,16 +312,12 @@ public class Board implements Serializable {
             if(!randomP.isWhite())
             {
                 i = (int) (Math.random() * blackP.size());
-                System.out.println(i);
                 randomP = blackP.get(i);
-                System.out.println(randomP);
             }
             else
             {
                 i = (int) (Math.random() * whiteP.size());
-                System.out.println(i);
                 randomP = whiteP.get(i);
-                System.out.println(randomP);
             }
 
         }
@@ -331,7 +331,6 @@ public class Board implements Serializable {
                 if(tile.isOccupied() && tile.getPiece().equals(randomP))
                 {
                     randomPieceLabel = tile.getjLabel();
-                    System.out.println(randomPieceLabel);
                     tile.removeAll();
                 }
             }
@@ -350,10 +349,7 @@ public class Board implements Serializable {
         newTile.setjLabel(randomPieceLabel);
         newTile.add(randomPieceLabel);
 
-
-        System.out.println(whiteP);
-        System.out.println(blackP);
-        System.out.println(randomP + "moved to " + newTile.getPOSITIONX() +", " + newTile.getPOSITIONY());
+        System.out.println("Bot moved " + randomP + " to (" + newTile.getPOSITIONX() +", " + newTile.getPOSITIONY() + ")");
     }
 
     public JButton resetGameButton()
@@ -362,6 +358,7 @@ public class Board implements Serializable {
         resetButton.setBounds(675,25,100,50);
         resetButton.addActionListener((ActionEvent e) ->  {
             fillBoard();
+            userPrompt();
         });
         return resetButton;
     }
@@ -401,17 +398,7 @@ public class Board implements Serializable {
         }
     }
 
-    /*
-    public void setPlayerTeam(boolean playerTeam) {
-        this.playerTeam = playerTeam;
-    }
-
-    public boolean isPlayerTeam() {
-        return playerTeam;
-    }
-
-     */
-
+    //this method would be needed if you wanted two player game
     public void setPlayerTurn(boolean playerTurn)
     {
        this. playerTurn = playerTurn;

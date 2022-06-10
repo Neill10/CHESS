@@ -74,9 +74,10 @@ public class BoardTile extends JButton implements Serializable {
         ArrayList<BoardTile> moves = piece.possibleMoves();
 
         associatedBoard.setSelectedAll(false);//sets all boardTiles selected default is false
+
         for (BoardTile tilePossible : moves) {
             tilePossible.setSelected(true);
-            System.out.println(tilePossible + " " + tilePossible.getSelected());
+            //System.out.println(tilePossible + " " + tilePossible.getSelected());
         }
         return moves;
     }
@@ -127,9 +128,7 @@ public class BoardTile extends JButton implements Serializable {
                             }
                             associatedBoard.setSelectedPiece(getPiece());
                             associatedBoard.setSelectedTile(BoardTile.this);
-                            System.out.print(associatedBoard.getSelectedPiece());
 
-                            //System.out.println(piece.getPositionX() + "," + piece.getPositionY());
                             ArrayList<BoardTile> highlight = makeTilePossible();
                             //highlighted tiles
 
@@ -146,16 +145,30 @@ public class BoardTile extends JButton implements Serializable {
                                 for (BoardTile tile : tiles) {
                                     if(tile.isOccupied()) {
                                         if (tile.getPiece().equals(piece)) {
-                                            System.out.print("*****");
+                                            System.out.print("  *  ");
                                         }
                                         else
                                         {
-                                            System.out.print(tile.getSelected() + " ");
+                                            if(tile.getSelected())
+                                            {
+                                                System.out.print("  X  ");
+                                            }
+                                            else
+                                            {
+                                                System.out.print("  0  ");
+                                            }
                                         }
                                     }
                                     else
                                     {
-                                        System.out.print(tile.getSelected() + " ");
+                                        if(tile.getSelected())
+                                        {
+                                            System.out.print("  X  ");
+                                        }
+                                        else
+                                        {
+                                            System.out.print("  0  ");
+                                        }
                                     }
 
                                 }
@@ -192,17 +205,14 @@ public class BoardTile extends JButton implements Serializable {
                 //deletes one icon
                 removeJLabel();
                 jLabel = selectedTile.getjLabel();
-                System.out.println(jLabel);
 
                 add(jLabel);
 
                 selectedTile.removeJLabel();
                 selectedPiece.move(getPOSITIONX(),getPOSITIONY());
-                System.out.println(selectedPiece + " has moved to (" + POSITIONX +", "+  POSITIONY +")");
+                System.out.println("You have moved " + selectedPiece + " to (" + POSITIONX +", "+  POSITIONY +")");
                 associatedBoard.setSelectedAll(false);
                 //pawn promotion: has to be put here since move methods run before this (and this replaces icons)
-
-                System.out.println(selectedTile);
 
                 //changes pawn to a queen if it on back rank
                 if(isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 0 || isOccupied() && getPiece().getPieceName().equals("pawn") && getPOSITIONX() == 7 )
@@ -244,16 +254,67 @@ public class BoardTile extends JButton implements Serializable {
                 boolean enemy = associatedBoard.alive(associatedBoard.enemyTeam());
                 if(enemy == false)
                 {
-                    System.out.println("YOU WON!");
-                    System.exit(0);
+                    JDialog jd = new JDialog(Board.FRAME);
+                    jd.setLayout(new FlowLayout());
+                    jd.setBounds(500, 300, 100, 150);
+                    jd.setVisible(true);
+                    JLabel jLabel = new JLabel("YOU WON!");
+                    JButton endGame = new JButton("End Game");
+                    endGame.addActionListener(e -> {
+                        try {
+                            File file = new File("src/saver.txt");
+                            file.delete();
+                        }catch (Exception ex)
+                        {
+                            System.out.println("NO file found(just in case)");
+                        }
+                        System.exit(0);
+                    });
+
+                    JButton restartGame = new JButton("Restart Game");
+                    restartGame.addActionListener(e -> {
+                        associatedBoard.fillBoard();
+                        jd.setVisible(false);
+                        associatedBoard.userPrompt();
+                    });
+
+                    jd.add(jLabel);
+                    jd.add(endGame);
+                    jd.add(restartGame);
+                    //System.exit(0);
                 }
                 //BOT MOVES
                 associatedBoard.SAMbot();
                 boolean player = associatedBoard.alive(associatedBoard.getPlayerTeam());
                 if(player == false)
                 {
-                    System.out.println("YOU LOST!");
-                    System.exit(0);
+                    JDialog jd = new JDialog(Board.FRAME);
+                    jd.setLayout(new FlowLayout());
+                    jd.setBounds(500, 300, 100, 150);
+                    jd.setVisible(true);
+                    JLabel jLabel = new JLabel("YOU WON!");
+                    JButton endGame = new JButton("End Game");
+                    endGame.addActionListener(e -> {
+                        try {
+                            File file = new File("src/saver.txt");
+                            file.delete();
+                        }catch (Exception ex)
+                        {
+                            System.out.println("NO file found(just in case)");
+                        }
+                        System.exit(0);
+                    });
+
+                    JButton restartGame = new JButton("Restart Game");
+                    restartGame.addActionListener(e -> {
+                        associatedBoard.fillBoard();
+                        jd.setVisible(false);
+                        associatedBoard.userPrompt();
+                    });
+
+                    jd.add(jLabel);
+                    jd.add(endGame);
+                    jd.add(restartGame);
                 }
 
                 Board.FRAME.invalidate();

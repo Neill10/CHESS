@@ -21,7 +21,6 @@ public abstract class Piece implements Serializable {
         possibleMoves = new ArrayList<BoardTile>();
     }
 
-    //public abstract? void move(int x, int y);//returns if piece successfully moved
     public void move(int x, int y) {
         possibleMoves = possibleMoves();
         for(BoardTile tile : getPossibleMoves())
@@ -40,9 +39,6 @@ public abstract class Piece implements Serializable {
                 b[x][y].getPiece().setPositionY(y);
                 board.setSelectedAll(false);
                 //future implementation should try to add saving moves
-                //board.getSave().writeToFile();
-
-                System.out.println("piece moved");
             }
         }
     }

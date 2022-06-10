@@ -2,7 +2,7 @@ package runner;
 import Saver.Saver;
 import pieces.*;
 
-public class Main {
+public class ChessRunner {
 
     public static void main(String[] args) {
 
@@ -11,13 +11,13 @@ public class Main {
         if(b == null)
         {
             b = new Board(fileName);
+            b.userPrompt();
             System.out.println("new board game");
         }
         else
         {
             b.createFrame();
         }
-        //b.assignBoard();
         b.printBoard();
 
         /*
